@@ -9,6 +9,7 @@ import {
 import type { RecommendationRequest, WeatherResponse } from "@/lib/types";
 import { REGIONS, SEASONS } from "@/lib/constants";
 import { GlassBar } from "./glass/GlassBar";
+import { FlipText } from "./block/flip-text";
 
 export function Header({
   params,
@@ -33,8 +34,22 @@ export function Header({
             </span>
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
-                <h1 className="font-display text-h2 font-bold text-ink">
-                  Nashik Crop Advisor
+                <h1
+                  className="font-display text-h2 font-bold text-ink"
+                  aria-label="Nashik Crop Advisor"
+                >
+                  {/* Plan 5.3 — one-shot flip wave on load. loop=false so the
+                      brand heading settles instead of pulsing forever;
+                      aria-label keeps the heading's accessible name intact
+                      (the text is fragmented into per-char spans). */}
+                  <FlipText
+                    duration={1.4}
+                    delay={0.1}
+                    loop={false}
+                    className="leading-[1.25]"
+                  >
+                    Nashik Crop Advisor
+                  </FlipText>
                 </h1>
                 <span className="rounded-full bg-moss-light px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-moss-deep ring-1 ring-inset ring-moss/10">
                   District Agro-Advisory

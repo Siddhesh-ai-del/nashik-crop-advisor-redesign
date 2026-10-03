@@ -245,6 +245,62 @@ body {
   }
 }
 
+/* --- Phase 5.3: flip-text (ObsidianUI block) --------------------------
+   The registry ships the component but no companion stylesheet; this
+   defines the contract its inline custom properties describe
+   (--flip-duration / --flip-delay / --flip-iteration). Each char spins
+   one rotateX loop: the front face is the glyph in ink, a ::before back
+   face (same glyph via attr(data-char), pre-rotated 180deg) is moss — so
+   mid-flip the travelling wave reads ink → moss → ink. The component
+   staggers --flip-delay per char on a sine curve, which turns isolated
+   spins into a wave across the word. */
+.flip-char {
+  animation: flip-char-spin var(--flip-duration, 2.2s)
+    cubic-bezier(0.6, 0, 0.35, 1) var(--flip-delay, 0s)
+    var(--flip-iteration, infinite);
+  backface-visibility: hidden;
+}
+
+.flip-char::before {
+  content: attr(data-char);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--moss);
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+}
+
+@keyframes flip-char-spin {
+  0%,
+  35% {
+    transform: rotateX(0deg);
+  }
+  75%,
+  100% {
+    transform: rotateX(-360deg);
+  }
+}
+
+/* A half-rotated glyph must never reach paper — the crop headline prints
+   inside CropDetails — so pin every char to its upright front face. */
+@media print {
+  .flip-char {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .flip-char::before {
+    content: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-char {
+    animation: none;
+  }
+}
+
 /* Phase 4.3 — reduced-motion guard for glass surfaces. The lens and the
    AmbientBackdrop are static by design (no loops, no `live` re-raster), so
    the only motion a glass shell can carry is a caller-added transition on

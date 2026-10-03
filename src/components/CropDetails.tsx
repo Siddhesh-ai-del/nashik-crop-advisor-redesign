@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Lightbulb, MessageSquareText, Target } from "lucide-react";
 import type { CropRecommendation, CropTier } from "@/lib/types";
 import { Badge } from "./ui";
+import { FlipText } from "./block/flip-text";
 import { MetricPills } from "./MetricPills";
 import { RadarChartCard } from "./RadarChartCard";
 import { FinancialCard } from "./FinancialCard";
@@ -38,8 +39,21 @@ export function CropDetails({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
-                <h2 className="font-display text-h1 font-bold text-ink">
-                  {crop.crop}
+                <h2
+                  className="font-display text-h1 font-bold text-ink"
+                  aria-label={crop.crop}
+                >
+                  {/* Plan 5.3 — the crop headline flips in whenever the tier
+                      swap remounts this card (AnimatePresence key = crop.id),
+                      so the recommendation swap has a typographic beat. */}
+                  <FlipText
+                    duration={1}
+                    delay={0.05}
+                    loop={false}
+                    className="leading-[1.15]"
+                  >
+                    {crop.crop}
+                  </FlipText>
                 </h2>
                 <Badge tone={TIER_BADGE[activeTier]}>{crop.tag}</Badge>
               </div>

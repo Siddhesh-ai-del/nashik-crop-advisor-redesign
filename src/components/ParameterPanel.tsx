@@ -15,8 +15,8 @@ import type {
   WaterKey,
 } from "@/lib/types";
 import { REGIONS, SEASONS, SOILS, WATER_LEVELS } from "@/lib/constants";
-import { cn } from "@/lib/cn";
 import { SectionCard } from "./ui";
+import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 
 interface OptionMeta {
   key: string;
@@ -43,21 +43,25 @@ function OptionGrid({
         {icon}
         {label}
       </p>
-      <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
+      {/* Radix toggle-group: real radio semantics + arrow-key navigation.
+          Cards are styled via overrides; the layoutId dot motion is kept. */}
+      <ToggleGroup
+        type="single"
+        value={value}
+        onValueChange={(v) => {
+          if (v) onSelect(v);
+        }}
+        spacing={4}
+        aria-label={label}
+        className="grid w-full grid-cols-1 gap-1.5 sm:grid-cols-3"
+      >
         {options.map((opt) => {
           const active = opt.key === value;
           return (
-            <button
+            <ToggleGroupItem
               key={opt.key}
-              type="button"
-              onClick={() => onSelect(opt.key)}
-              aria-pressed={active}
-              className={cn(
-                "relative rounded-md border px-3 py-2.5 text-left transition-all duration-300",
-                active
-                  ? "border-moss/40 bg-moss-light/70 shadow-1"
-                  : "border-border/40 bg-surface/50 hover:border-moss/20 hover:bg-moss-light/20",
-              )}
+              value={opt.key}
+              className="relative flex h-auto flex-col items-start justify-start gap-0 rounded-md border px-3 py-2.5 text-left whitespace-normal transition-all duration-300 border-border/40 bg-surface/50 text-ink hover:border-moss/20 hover:bg-moss-light/20 hover:text-ink focus-visible:ring-moss/30 data-[state=on]:border-moss/40 data-[state=on]:bg-moss-light/70 data-[state=on]:text-moss-deep data-[state=on]:shadow-1"
             >
               {active ? (
                 <motion.span
@@ -65,21 +69,14 @@ function OptionGrid({
                   className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-moss shadow-glow"
                 />
               ) : null}
-              <span
-                className={cn(
-                  "block text-sm font-semibold",
-                  active ? "text-moss-deep" : "text-ink",
-                )}
-              >
-                {opt.label}
-              </span>
+              <span className="block text-sm font-semibold">{opt.label}</span>
               <span className="mt-0.5 block text-[11px] leading-snug text-ink-secondary">
                 {opt.sub}
               </span>
-            </button>
+            </ToggleGroupItem>
           );
         })}
-      </div>
+      </ToggleGroup>
     </div>
   );
 }

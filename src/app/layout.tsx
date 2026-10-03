@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Source_Serif_4, Inter } from "next/font/google";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -52,7 +53,9 @@ export default function RootLayout({
       lang="en"
       className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

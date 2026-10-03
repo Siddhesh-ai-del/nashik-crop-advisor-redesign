@@ -63,7 +63,7 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 ## Phase 5 — ObsidianUI feature components
 
 - [x] **5.1** `interactive-hover-button` → Export/Print, Refresh, Compare actions. *(Registry block adapted: the `scale-[100.8]` moss disc is the signature fill — hover floods the pill moss, so the hover row must stay `text-primary-foreground` (7.7:1 on moss), not re-tinted. Disc restructured as an always-present layer so the icon variant (Refresh's spinning `RefreshCw`) keeps the fill and rides the resting row out with the label; explicit `focus-visible` ring + `motion-reduce:transition-none`.)*
-- [ ] **5.2** `sonner` toasts → weather refresh, export, API errors (currently silent/inline).
+- [x] **5.2** `sonner` toasts → weather refresh, export, API errors (currently silent/inline). *(`useRecommendation.ts` toasts manual-refresh success (live/offline variants) + API errors with stable ids (dedupe, no stacking); `ExportButton` shows "Opening print dialog…" and defers `print()` one frame so the toast paints before the modal blocks the thread, dismissing it on return; toaster is `display:none` in `@media print`. Fixed the ObsidianUI wrapper's shadcn-compat vars — `--popover`/`--radius` don't exist in this theme, making sonner's `[data-styled=true]` background/border-radius invalid → transparent square; now maps to `--surface-elevated`/`--ink`/`--radius-lg`.)*
 - [ ] **5.3** `flip-text` / `text-reel` → headline + crop-tier recommendation swap.
 - [ ] **5.4** `hover-img` (**needs `gsap`**) → crop card imagery. *Needs image assets sourced.*
 - [ ] **5.5** `liquid-metal` (**needs `@paper-design/shaders-react`**, WebGL) → logo/hero only, not the dashboard body.

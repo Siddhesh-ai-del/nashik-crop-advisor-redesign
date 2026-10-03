@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import type {
   RecommendationRequest,
   RecommendationResponse,
@@ -33,7 +34,8 @@ export function useRecommendation(): RecommendationState {
     soil: "black",
     water: "high",
   });
-  const [recommendation, setRecommendation] = useState<RecommendationResponse | null>(null);
+  const [recommendation, setRecommendation] =
+    useState<RecommendationResponse | null>(null);
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [loadingRecommendation, setLoadingRecommendation] = useState(true);
   const [loadingWeather, setLoadingWeather] = useState(true);
@@ -43,13 +45,20 @@ export function useRecommendation(): RecommendationState {
   const recAbortRef = useRef<AbortController | null>(null);
   const weatherAbortRef = useRef<AbortController | null>(null);
   const paramsRef = useRef(params);
+  /** True between a manual Retry/Refresh click and the next weather settle —
+   *  used to toast the outcome of that explicit action only (plan 5.2),
+   *  not the background refetches that follow param changes. */
+  const manualRefreshRef = useRef(false);
 
   useEffect(() => {
     paramsRef.current = params;
   }, [params]);
 
   const setParam = useCallback(
-    <K extends keyof RecommendationRequest>(key: K, value: RecommendationRequest[K]) => {
+    <K extends keyof RecommendationRequest>(
+      key: K,
+      value: RecommendationRequest[K],
+    ) => {
       setParamsState((prev) => ({ ...prev, [key]: value }));
       setLoadingRecommendation(true);
       if (key === "region") setLoadingWeather(true);
@@ -65,6 +74,7 @@ export function useRecommendation(): RecommendationState {
   }, []);
 
   const retry = useCallback(() => {
+    manualRefreshRef.current = true;
     setLoadingRecommendation(true);
     setLoadingWeather(true);
     setRetryKey((k) => k + 1);
@@ -93,7 +103,17 @@ export function useRecommendation(): RecommendationState {
       })
       .catch((err: unknown) => {
         if (controller.signal.aborted) return;
-        setError(err instanceof Error ? err.message : "Unable to load recommendations.");
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Unable to load recommendations.";
+        setError(message);
+        // Plan 5.2: API errors were inline-only — now also transient.
+        // Stable id = sonner updates the existing toast instead of stacking
+        // a new one on every param change that fails the same way.
+        toast.error(`Advisory request failed — ${message}`, {
+          id: "recommend-error",
+        });
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoadingRecommendation(false);
@@ -118,13 +138,26 @@ export function useRecommendation(): RecommendationState {
       .then((data) => {
         if (!controller.signal.aborted) {
           setWeather(data);
+          if (manualRefreshRef.current) {
+            manualRefreshRef.current = false;
+            toast.success(
+              data.source === "open-meteo"
+                ? "Microclimate refreshed — live Open-Meteo data"
+                : "Microclimate refreshed — offline estimate",
+              { id: "weather-refresh", duration: 3500 },
+            );
+          }
         }
       })
       .catch((err: unknown) => {
         if (controller.signal.aborted) return;
-        setError(
-          err instanceof Error ? `Weather unavailable: ${err.message}` : "Weather unavailable.",
-        );
+        if (manualRefreshRef.current) manualRefreshRef.current = false;
+        const message =
+          err instanceof Error
+            ? `Weather unavailable: ${err.message}`
+            : "Weather unavailable.";
+        setError(message);
+        toast.error(message, { id: "weather-error" });
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoadingWeather(false);

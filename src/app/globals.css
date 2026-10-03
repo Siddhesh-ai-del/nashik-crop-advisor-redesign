@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f0e8;
+  --foreground: #3d2b1f;
+  --canvas: #f5f0e8;
+  --canvas-warm: #efe8dc;
+  --canvas-deep: #e8dfd0;
+  --surface: #faf7f2;
+  --surface-elevated: #ffffff;
+  --ink: #3d2b1f;
+  --ink-secondary: #6b5e50;
+  --ink-muted: #8a7d6f;
+  --border: #d4c9b8;
+  --border-light: #e2d9cc;
+  --moss: #5a7a4d;
+  --moss-light: #e8f0e4;
+  --moss-deep: #3d5a32;
+  --sage: #99a88c;
+  --sage-light: #f0f3ec;
+  --terracotta: #c4704b;
+  --terracotta-light: #faf0eb;
+  --clay: #c9a882;
+  --clay-light: #f5efe6;
+  --stone: #b8a99a;
+  --olive: #7a8a5c;
+  --olive-light: #eff2e8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-canvas-warm: var(--canvas-warm);
+  --color-canvas-deep: var(--canvas-deep);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-moss: var(--moss);
+  --color-moss-light: var(--moss-light);
+  --color-moss-deep: var(--moss-deep);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-clay: var(--clay);
+  --color-clay-light: var(--clay-light);
+  --color-stone: var(--stone);
+  --color-olive: var(--olive);
+  --color-olive-light: var(--olive-light);
+  --color-leaf-50: #f0f5ec;
+  --color-leaf-100: #e0ebd8;
+  --color-leaf-200: #c4d8b8;
+  --color-leaf-300: #99b882;
+  --color-leaf-400: #7aa35c;
+  --color-leaf-500: #5a7a4d;
+  --color-leaf-600: #4a6a3d;
+  --color-leaf-700: #3d5a32;
+  --color-leaf-800: #2f4826;
+  --color-leaf-900: #1f3318;
+  --color-harvest-50: #faf5ed;
+  --color-harvest-100: #f3e8d4;
+  --color-harvest-200: #e8d4b0;
+  --color-harvest-300: #d4b87a;
+  --color-harvest-400: #c49e54;
+  --color-harvest-500: #b08838;
+  --color-harvest-600: #96722c;
+  --color-harvest-700: #7a5c22;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--stone);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::selection {
+  background: var(--moss-light);
+  color: var(--moss-deep);
+}
+
+.print-only {
+  display: none;
+}
+
+@keyframes organic-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(0.5deg); }
+  50% { transform: translateY(-1px) rotate(-0.3deg); }
+  75% { transform: translateY(-4px) rotate(0.2deg); }
+}
+
+@keyframes gentle-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes grain-shimmer {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -1%); }
+  20% { transform: translate(1%, 0); }
+  30% { transform: translate(0, 1%); }
+  40% { transform: translate(-1%, 1%); }
+  50% { transform: translate(1%, -1%); }
+  60% { transform: translate(0, 0); }
+  70% { transform: translate(-1%, 0); }
+  80% { transform: translate(1%, 1%); }
+  90% { transform: translate(0, -1%); }
+}
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .print-block {
+    display: block !important;
+  }
+
+  .print-break {
+    break-inside: avoid;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  @page {
+    margin: 14mm;
+  }
 }

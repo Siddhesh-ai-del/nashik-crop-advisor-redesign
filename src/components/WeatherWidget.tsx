@@ -92,9 +92,9 @@ function ForecastStrip({
             <div
               key={day.date}
               className={cn(
-                "w-[76px] shrink-0 rounded-[14px] border px-2 py-3 text-center transition-all duration-300",
+                "w-[76px] shrink-0 rounded-lg border px-2 py-3 text-center transition-all duration-300",
                 i === 0
-                  ? "border-moss/30 bg-moss-light/50 shadow-[0_1px_4px_rgba(90,122,77,0.08)]"
+                  ? "border-moss/30 bg-moss-light/50 shadow-1"
                   : "border-border/30 bg-surface/40 hover:border-border/60",
               )}
             >
@@ -151,7 +151,7 @@ export function WeatherWidget({
               type="button"
               onClick={onRefresh}
               disabled={loading}
-              className="flex items-center gap-1.5 rounded-[10px] border border-border/50 bg-surface/60 px-3 py-1.5 text-xs font-semibold text-ink-secondary transition-all hover:border-moss/25 hover:bg-moss-light/30 hover:text-moss-deep disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-sm border border-border/50 bg-surface/60 px-3 py-1.5 text-xs font-semibold text-ink-secondary transition-all hover:border-moss/25 hover:bg-moss-light/30 hover:text-moss-deep disabled:opacity-50"
             >
               <RefreshCw className={cn("h-3.5 w-3.5", loading && "animate-spin")} aria-hidden />
               Refresh
@@ -168,9 +168,9 @@ export function WeatherWidget({
           </div>
         ) : current ? (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)]">
-            <div className="min-w-0 rounded-[16px] border border-border/40 bg-canvas-warm/40 p-5">
+            <div className="min-w-0 rounded-lg border border-border/40 bg-canvas-warm/40 p-5">
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-surface text-moss ring-1 ring-border/30">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-surface text-moss ring-1 ring-border/30">
                   <WeatherIcon code={current.weatherCode} className="h-8 w-8" />
                 </div>
                 <div className="min-w-0">
@@ -213,7 +213,7 @@ export function WeatherWidget({
               </div>
             </div>
 
-            <div className="rounded-[14px] border border-border/30 p-3.5">
+            <div className="rounded-lg border border-border/30 p-3.5">
               <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-widest text-ink-muted">
                 7-day forecast · precipitation
               </p>
@@ -237,7 +237,7 @@ export function WeatherWidget({
                 key={alert.id}
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={cn("flex items-start gap-3 rounded-[14px] border p-3.5", tone.box)}
+                className={cn("flex items-start gap-3 rounded-lg border p-3.5", tone.box)}
               >
                 <Icon className={cn("mt-0.5 h-4 w-4 shrink-0", tone.icon)} aria-hidden />
                 <div>

@@ -48,18 +48,18 @@ export function PresetButtons({
                 })
               }
               className={cn(
-                "group flex flex-col rounded-[16px] border p-4 text-left transition-all duration-300",
+                "group flex flex-col rounded-lg border p-4 text-left transition-all duration-300",
                 active
-                  ? "border-moss/40 bg-moss-light/60 shadow-[0_2px_12px_rgba(90,122,77,0.1)]"
-                  : "border-border/50 bg-surface/60 hover:border-moss/25 hover:bg-moss-light/30 hover:shadow-[0_2px_8px_rgba(90,122,77,0.06)]",
+                  ? "border-moss/40 bg-moss-light/60 shadow-1"
+                  : "border-border/50 bg-surface/60 hover:border-moss/25 hover:bg-moss-light/30 hover:shadow-1",
               )}
             >
               <div className="flex items-center justify-between">
                 <div
                   className={cn(
-                    "flex h-9 w-9 items-center justify-center rounded-[10px] transition-all duration-300",
+                    "flex h-9 w-9 items-center justify-center rounded-sm transition-all duration-300",
                     active
-                      ? "bg-moss text-white shadow-[0_2px_6px_rgba(90,122,77,0.25)]"
+                      ? "bg-moss text-white shadow-2"
                       : "bg-moss-light text-moss ring-1 ring-moss/10",
                   )}
                 >

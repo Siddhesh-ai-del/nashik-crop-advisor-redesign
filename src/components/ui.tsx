@@ -12,7 +12,7 @@ export function SectionCard({
   return (
     <div
       className={cn(
-        "rounded-[20px] border border-border/60 bg-surface/80 shadow-[0_1px_3px_rgba(61,43,31,0.04),0_8px_24px_rgba(61,43,31,0.03)] backdrop-blur-sm print-break",
+        "rounded-xl border border-border/60 bg-surface/80 shadow-1 backdrop-blur-sm print-break",
         className,
       )}
     >
@@ -36,7 +36,7 @@ export function SectionTitle({
     <div className="flex flex-wrap items-start justify-between gap-3 px-6 pt-6">
       <div className="flex items-start gap-3">
         {icon ? (
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-moss-light text-moss ring-1 ring-moss/10">
+          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
             {icon}
           </div>
         ) : null}
@@ -88,7 +88,7 @@ export function Skeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "animate-pulse rounded-[14px] bg-border-light",
+        "animate-pulse rounded-lg bg-border-light",
         className,
       )}
     />

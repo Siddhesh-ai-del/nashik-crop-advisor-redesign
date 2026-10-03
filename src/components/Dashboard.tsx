@@ -54,7 +54,7 @@ export function Dashboard() {
 
       <div className="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-6 print:p-0">
         {error ? (
-          <div className="flex items-start justify-between gap-3 rounded-[16px] border border-terracotta/20 bg-terracotta-light/60 p-4 print-hide">
+          <div className="flex items-start justify-between gap-3 rounded-lg border border-terracotta/20 bg-terracotta-light/60 p-4 print-hide">
             <div className="flex items-start gap-3">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-terracotta" aria-hidden />
               <div>
@@ -67,7 +67,7 @@ export function Dashboard() {
             <button
               type="button"
               onClick={retry}
-              className="shrink-0 rounded-[10px] border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light hover:text-moss-deep"
+              className="shrink-0 rounded-sm border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light hover:text-moss-deep"
             >
               Retry
             </button>
@@ -99,7 +99,7 @@ export function Dashboard() {
           <SectionCard className="overflow-hidden print-break">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/40 bg-canvas-warm/50 px-6 py-5">
               <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-moss text-white shadow-[0_2px_8px_rgba(90,122,77,0.2)]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss text-white shadow-2">
                   <Trophy className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export function Dashboard() {
                   <button
                     type="button"
                     onClick={() => setCompareOpen(true)}
-                    className="rounded-[12px] border border-border/60 bg-surface/80 px-3.5 py-2.5 text-sm font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light/50 hover:text-moss-deep"
+                    className="rounded-md border border-border/60 bg-surface/80 px-3.5 py-2.5 text-sm font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light/50 hover:text-moss-deep"
                   >
                     Compare all ({crops.length})
                   </button>
@@ -145,9 +145,9 @@ export function Dashboard() {
               {loadingRecommendation ? (
                 <div className="space-y-6">
                   <div className="flex gap-2.5">
-                    <Skeleton className="h-12 w-56 rounded-[14px]" />
-                    <Skeleton className="h-12 w-56 rounded-[14px]" />
-                    <Skeleton className="hidden h-12 w-56 rounded-[14px] lg:block" />
+                    <Skeleton className="h-12 w-56 rounded-lg" />
+                    <Skeleton className="h-12 w-56 rounded-lg" />
+                    <Skeleton className="hidden h-12 w-56 rounded-lg lg:block" />
                   </div>
                   <Skeleton className="h-28 w-full" />
                   <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">

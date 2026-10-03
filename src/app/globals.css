@@ -28,6 +28,18 @@
 }
 
 @theme inline {
+  /* Radius scale — 4 tokens replace 7 ad-hoc px values */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Elevation ladder — 3 tokens replace 14 bespoke shadow literals */
+  --shadow-1: 0 1px 3px rgba(61, 43, 31, 0.05), 0 1px 2px rgba(61, 43, 31, 0.04);
+  --shadow-2: 0 2px 8px rgba(61, 43, 31, 0.08), 0 1px 3px rgba(61, 43, 31, 0.04);
+  --shadow-3: 0 8px 40px rgba(61, 43, 31, 0.12), 0 2px 8px rgba(61, 43, 31, 0.06);
+  --shadow-glow: 0 0 6px rgba(90, 122, 77, 0.3);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-canvas: var(--canvas);

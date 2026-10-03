@@ -38,9 +38,9 @@ export function CropSwitcher({
             aria-selected={active}
             onClick={() => onChange(crop.tier)}
             className={cn(
-              "relative flex min-w-0 items-center gap-2.5 rounded-[14px] border px-4 py-3 text-left transition-all duration-300",
+              "relative flex min-w-0 items-center gap-2.5 rounded-lg border px-4 py-3 text-left transition-all duration-300",
               active
-                ? "border-moss/40 bg-moss text-white shadow-[0_2px_12px_rgba(90,122,77,0.2)]"
+                ? "border-moss/40 bg-moss text-white shadow-2"
                 : "border-border/40 bg-surface/60 text-ink-secondary hover:border-moss/20 hover:bg-moss-light/30",
             )}
           >

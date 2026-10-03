@@ -65,7 +65,7 @@ export function FinancialCard({ crop }: { crop: CropRecommendation }) {
           return (
             <div
               key={row.label}
-              className="flex items-center justify-between rounded-[14px] border border-border/30 bg-canvas-warm/40 px-4 py-3"
+              className="flex items-center justify-between rounded-lg border border-border/30 bg-canvas-warm/40 px-4 py-3"
             >
               <span className="flex items-center gap-2.5 text-sm font-medium text-ink-secondary">
                 <Icon className={cn("h-4 w-4", row.cls)} aria-hidden />

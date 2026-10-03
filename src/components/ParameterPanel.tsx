@@ -53,16 +53,16 @@ function OptionGrid({
               onClick={() => onSelect(opt.key)}
               aria-pressed={active}
               className={cn(
-                "relative rounded-[12px] border px-3 py-2.5 text-left transition-all duration-300",
+                "relative rounded-md border px-3 py-2.5 text-left transition-all duration-300",
                 active
-                  ? "border-moss/40 bg-moss-light/70 shadow-[0_1px_4px_rgba(90,122,77,0.1)]"
+                  ? "border-moss/40 bg-moss-light/70 shadow-1"
                   : "border-border/40 bg-surface/50 hover:border-moss/20 hover:bg-moss-light/20",
               )}
             >
               {active ? (
                 <motion.span
                   layoutId={`dot-${label}`}
-                  className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-moss shadow-[0_0_6px_rgba(90,122,77,0.3)]"
+                  className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-moss shadow-glow"
                 />
               ) : null}
               <span
@@ -121,7 +121,7 @@ export function ParameterPanel({
   return (
     <SectionCard className="p-6 print-hide">
       <div className="flex items-start gap-3.5">
-        <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-moss-light text-moss ring-1 ring-moss/10">
+        <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
           <MapPin className="h-4.5 w-4.5" aria-hidden />
         </div>
         <div>

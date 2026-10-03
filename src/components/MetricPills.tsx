@@ -34,7 +34,7 @@ export function MetricPills({ crop }: { crop: CropRecommendation }) {
           <div
             key={pill.key}
             className={cn(
-              "rounded-[14px] border border-border/40 bg-surface/60 p-3.5 transition-all duration-300 hover:border-moss/15 hover:bg-moss-light/20",
+              "rounded-lg border border-border/40 bg-surface/60 p-3.5 transition-all duration-300 hover:border-moss/15 hover:bg-moss-light/20",
               pill.short && "col-span-1",
             )}
           >

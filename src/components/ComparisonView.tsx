@@ -71,14 +71,14 @@ export function ComparisonView({
             exit={{ y: 24, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-5xl rounded-[20px] bg-canvas p-6 shadow-[0_8px_40px_rgba(61,43,31,0.12)]"
+            className="w-full max-w-5xl rounded-xl bg-canvas p-6 shadow-3"
             role="dialog"
             aria-modal="true"
             aria-label="Comparative crop analysis"
           >
             <div className="mb-5 flex items-start justify-between gap-3">
               <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-moss-light text-moss ring-1 ring-moss/10">
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
                   <GitCompareArrows className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
@@ -94,7 +94,7 @@ export function ComparisonView({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-border/50 text-ink-muted transition-all hover:border-border hover:bg-surface hover:text-ink"
+                className="flex h-9 w-9 items-center justify-center rounded-sm border border-border/50 text-ink-muted transition-all hover:border-border hover:bg-surface hover:text-ink"
                 aria-label="Close comparison"
               >
                 <X className="h-4 w-4" aria-hidden />

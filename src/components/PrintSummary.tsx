@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import type {
   CropRecommendation,
   RecommendationRequest,
@@ -18,17 +15,12 @@ export function PrintSummary({
   generatedAt: string;
   source: "ai" | "fallback";
 }) {
-  // Format the timestamp only on the client to avoid SSR/client mismatches
-  // (server locale/timezone and render-time differ from the browser).
-  const [generatedLabel, setGeneratedLabel] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!generatedAt) {
-      setGeneratedLabel(null);
-      return;
-    }
-    setGeneratedLabel(new Date(generatedAt).toLocaleString("en-IN"));
-  }, [generatedAt]);
+  // generatedAt is "" during SSR and the initial client render (recommendation
+  // arrives via client fetch), so this only formats after data loads — no
+  // SSR/client mismatch.
+  const generatedLabel = generatedAt
+    ? new Date(generatedAt).toLocaleString("en-IN")
+    : null;
 
   return (
     <div className="print-only print-break">

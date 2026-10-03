@@ -50,7 +50,7 @@ export function PestDiseaseCard({ crop }: { crop: CropRecommendation }) {
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="rounded-[14px] border border-border/30 bg-canvas-warm/40 p-3.5">
+          <div className="rounded-lg border border-border/30 bg-canvas-warm/40 p-3.5">
             <p className="text-[11px] font-semibold uppercase tracking-widest text-ink-muted">
               Primary pests
             </p>
@@ -63,7 +63,7 @@ export function PestDiseaseCard({ crop }: { crop: CropRecommendation }) {
               ))}
             </ul>
           </div>
-          <div className="rounded-[14px] border border-border/30 bg-canvas-warm/40 p-3.5">
+          <div className="rounded-lg border border-border/30 bg-canvas-warm/40 p-3.5">
             <p className="text-[11px] font-semibold uppercase tracking-widest text-ink-muted">
               Primary diseases
             </p>

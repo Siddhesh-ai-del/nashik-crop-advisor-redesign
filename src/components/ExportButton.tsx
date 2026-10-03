@@ -11,7 +11,7 @@ export function ExportButton() {
     <button
       type="button"
       onClick={handlePrint}
-      className="flex items-center gap-2 rounded-[12px] bg-moss px-4 py-2.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(90,122,77,0.2)] transition-all duration-300 hover:bg-moss-deep hover:shadow-[0_4px_12px_rgba(90,122,77,0.25)] print-hide"
+      className="flex items-center gap-2 rounded-md bg-moss px-4 py-2.5 text-sm font-semibold text-white shadow-2 transition-all duration-300 hover:bg-moss-deep hover:shadow-2 print-hide"
     >
       <Printer className="h-4 w-4" aria-hidden />
       Export / Print Advisory

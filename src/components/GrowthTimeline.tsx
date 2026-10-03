@@ -50,9 +50,9 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
             <div
               key={stage.id}
               className={cn(
-                "overflow-hidden rounded-[16px] border transition-all duration-300",
+                "overflow-hidden rounded-lg border transition-all duration-300",
                 open
-                  ? "border-moss/25 bg-moss-light/30 shadow-[0_1px_4px_rgba(90,122,77,0.06)]"
+                  ? "border-moss/25 bg-moss-light/30 shadow-1"
                   : "border-border/30 bg-surface/50 hover:border-border/60",
               )}
             >
@@ -67,7 +67,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                     className={cn(
                       "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-all duration-300",
                       allDone
-                        ? "bg-moss text-white shadow-[0_2px_8px_rgba(90,122,77,0.25)]"
+                        ? "bg-moss text-white shadow-2"
                         : "bg-moss-light text-moss ring-1 ring-moss/15",
                     )}
                   >
@@ -118,7 +118,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                           const isChecked = !!checked[key];
                           return (
                             <li key={key}>
-                              <label className="flex cursor-pointer items-start gap-2.5 rounded-[10px] px-2 py-1 hover:bg-surface/60">
+                              <label className="flex cursor-pointer items-start gap-2.5 rounded-sm px-2 py-1 hover:bg-surface/60">
                                 <input
                                   type="checkbox"
                                   checked={isChecked}
@@ -144,7 +144,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                         })}
                       </ul>
 
-                      <div className="mt-4 flex items-start gap-2.5 rounded-[12px] border border-harvest-200/40 bg-harvest-50/50 px-4 py-3">
+                      <div className="mt-4 flex items-start gap-2.5 rounded-md border border-harvest-200/40 bg-harvest-50/50 px-4 py-3">
                         <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-harvest-600" aria-hidden />
                         <p className="text-xs leading-relaxed text-ink">
                           <span className="font-semibold text-harvest-700">

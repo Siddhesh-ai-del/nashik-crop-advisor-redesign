@@ -34,7 +34,7 @@ export function CropDetails({
         transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="space-y-6"
       >
-        <div className="rounded-[18px] border border-border/40 bg-surface/70 p-6 shadow-[0_1px_3px_rgba(61,43,31,0.03)] print-break">
+        <div className="rounded-lg border border-border/40 bg-surface/70 p-6 shadow-1 print-break">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
@@ -50,8 +50,8 @@ export function CropDetails({
           </div>
 
           <div className="mt-5 space-y-3">
-            <div className="flex items-start gap-3.5 rounded-[14px] border border-moss/15 bg-moss-light/40 p-4">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-moss-light text-moss">
+            <div className="flex items-start gap-3.5 rounded-lg border border-moss/15 bg-moss-light/40 p-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-moss-light text-moss">
                 <Lightbulb className="h-4 w-4" aria-hidden />
               </div>
               <div>
@@ -63,8 +63,8 @@ export function CropDetails({
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3.5 rounded-[14px] border border-border/30 bg-canvas-warm/40 p-4">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-clay-light text-ink-secondary">
+            <div className="flex items-start gap-3.5 rounded-lg border border-border/30 bg-canvas-warm/40 p-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-clay-light text-ink-secondary">
                 <Target className="h-4 w-4" aria-hidden />
               </div>
               <div>
@@ -76,8 +76,8 @@ export function CropDetails({
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3.5 rounded-[14px] border border-border/30 bg-canvas-warm/40 p-4">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-clay-light text-ink-secondary">
+            <div className="flex items-start gap-3.5 rounded-lg border border-border/30 bg-canvas-warm/40 p-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-clay-light text-ink-secondary">
                 <MessageSquareText className="h-4 w-4" aria-hidden />
               </div>
               <div>

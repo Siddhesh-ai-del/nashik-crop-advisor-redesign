@@ -67,6 +67,8 @@ export function RadarChartCard({ crop }: { crop: CropRecommendation }) {
               strokeWidth={2}
               fill="#7ba069"
               fillOpacity={0.18}
+              dot={{ r: 3, fill: "#7ba069", stroke: "#1c1f22", strokeWidth: 2 }}
+              activeDot={{ r: 5, fill: "#9ec48c", stroke: "#0a0b0c", strokeWidth: 2 }}
             />
           </RadarChart>
         </ResponsiveContainer>

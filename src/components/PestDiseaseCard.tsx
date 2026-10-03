@@ -4,12 +4,13 @@ import { Bug, CheckCircle2, Eye, ShieldAlert } from "lucide-react";
 import type { CropRecommendation, RiskLevel } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { SectionCard, SectionTitle, Badge } from "./ui";
+import { Progress } from "./ui/progress";
 
-const RISK_TONE: Record<RiskLevel, { tone: "moss" | "sage" | "harvest" | "terracotta"; gauge: string; label: string; pct: number }> = {
-  low: { tone: "moss", gauge: "bg-moss", label: "Low threat", pct: 25 },
-  medium: { tone: "sage", gauge: "bg-sage", label: "Medium threat", pct: 50 },
-  high: { tone: "harvest", gauge: "bg-harvest-500", label: "High threat", pct: 75 },
-  critical: { tone: "terracotta", gauge: "bg-terracotta", label: "Critical threat", pct: 95 },
+const RISK_TONE: Record<RiskLevel, { tone: "moss" | "sage" | "harvest" | "terracotta"; indicator: string; label: string; pct: number }> = {
+  low: { tone: "moss", indicator: "[&_[data-slot=progress-indicator]]:bg-moss", label: "Low threat", pct: 25 },
+  medium: { tone: "sage", indicator: "[&_[data-slot=progress-indicator]]:bg-sage", label: "Medium threat", pct: 50 },
+  high: { tone: "harvest", indicator: "[&_[data-slot=progress-indicator]]:bg-harvest-500", label: "High threat", pct: 75 },
+  critical: { tone: "terracotta", indicator: "[&_[data-slot=progress-indicator]]:bg-terracotta", label: "Critical threat", pct: 95 },
 };
 
 const TONE_BADGE = {
@@ -39,12 +40,11 @@ export function PestDiseaseCard({ crop }: { crop: CropRecommendation }) {
             <span>{meta.label}</span>
           </div>
           <div className="mt-2 flex items-center gap-2.5">
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-border-light">
-              <div
-                className={cn("h-full rounded-full transition-all duration-500", meta.gauge)}
-                style={{ width: `${meta.pct}%` }}
-              />
-            </div>
+            <Progress
+              value={meta.pct}
+              aria-label={`Threat level: ${meta.label}`}
+              className={cn("h-2 flex-1 bg-border-light", meta.indicator)}
+            />
             <ShieldAlert className="h-4 w-4 text-ink-muted" aria-hidden />
           </div>
         </div>

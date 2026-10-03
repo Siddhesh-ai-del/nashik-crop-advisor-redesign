@@ -5,15 +5,30 @@ import type { CropRecommendation } from "@/lib/types";
 import { formatRupees } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { SectionCard, SectionTitle, Badge } from "./ui";
+import { Progress } from "./ui/progress";
 
 function marginTone(percent: number): {
   label: string;
   tone: "moss" | "harvest" | "terracotta";
-  bar: string;
+  indicator: string;
 } {
-  if (percent >= 40) return { label: "High margin", tone: "moss", bar: "bg-moss" };
-  if (percent >= 20) return { label: "Moderate margin", tone: "harvest", bar: "bg-harvest-500" };
-  return { label: "Thin margin", tone: "terracotta", bar: "bg-terracotta" };
+  if (percent >= 40)
+    return {
+      label: "High margin",
+      tone: "moss",
+      indicator: "[&_[data-slot=progress-indicator]]:bg-moss",
+    };
+  if (percent >= 20)
+    return {
+      label: "Moderate margin",
+      tone: "harvest",
+      indicator: "[&_[data-slot=progress-indicator]]:bg-harvest-500",
+    };
+  return {
+    label: "Thin margin",
+    tone: "terracotta",
+    indicator: "[&_[data-slot=progress-indicator]]:bg-terracotta",
+  };
 }
 
 export function FinancialCard({ crop }: { crop: CropRecommendation }) {
@@ -84,10 +99,11 @@ export function FinancialCard({ crop }: { crop: CropRecommendation }) {
           <span>Profit margin</span>
           <span>{margin}%</span>
         </div>
-        <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-border-light">
-          <div
-            className={cn("h-full rounded-full transition-all duration-500", tone.bar)}
-            style={{ width: `${Math.min(100, margin)}%` }}
+        <div className="mt-2">
+          <Progress
+            value={Math.min(100, Math.max(0, margin))}
+            aria-label={`Profit margin ${margin} percent`}
+            className={cn("h-2 bg-border-light", tone.indicator)}
           />
         </div>
         <p className="mt-1.5 text-[11px] text-ink-muted">

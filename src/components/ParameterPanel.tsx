@@ -120,20 +120,19 @@ export function ParameterPanel({
 
   return (
     <SectionCard className="p-6 print-hide">
-      <div className="flex items-start gap-3.5">
-        <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
-          <MapPin className="h-4.5 w-4.5" aria-hidden />
-        </div>
-        <div>
-          <h2 className="font-display text-h3 font-semibold text-ink">
-            Field Parameters
-          </h2>
-          <p className="mt-0.5 text-sm text-ink-secondary">
-            Set the micro-region, season, soil and water availability for your
-            plot.
-          </p>
-        </div>
+      {/* Single hierarchy: display heading → muted subhead (icon inline). */}
+      <div className="flex items-center gap-2">
+        <span className="text-moss" aria-hidden>
+          <MapPin className="h-4.5 w-4.5" />
+        </span>
+        <h2 className="font-display text-h3 font-semibold text-ink">
+          Field Parameters
+        </h2>
       </div>
+      <p className="mt-1 text-sm text-ink-muted">
+        Set the micro-region, season, soil and water availability for your
+        plot.
+      </p>
 
       <div className="mt-6 space-y-5">
         <OptionGrid

@@ -98,15 +98,16 @@ export function Dashboard() {
         <FadeIn delay={0.2}>
           <SectionCard className="overflow-hidden print-break">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/40 bg-canvas-warm/50 px-6 py-5">
-              <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss text-canvas shadow-2">
-                  <Trophy className="h-5 w-5" aria-hidden />
-                </div>
+              {/* Single hierarchy: display heading → muted subhead (icon inline). */}
+              <div className="flex items-center gap-2.5">
+                <span className="text-moss" aria-hidden>
+                  <Trophy className="h-5 w-5" />
+                </span>
                 <div>
                   <h2 className="font-display text-h3 font-bold text-ink">
                     Crop Recommendations
                   </h2>
-                  <p className="text-xs text-ink-secondary">
+                  <p className="text-xs text-ink-muted">
                     {REGIONS[params.region].name} ·{" "}
                     {recommendation
                       ? `${crops.length} ranked options · ${

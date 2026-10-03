@@ -22,10 +22,11 @@ export function Header({
   return (
     <header className="border-b border-border/40 bg-canvas/90 backdrop-blur-md print-hide">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-moss text-canvas shadow-2">
-            <Sprout className="h-6 w-6" aria-hidden />
-          </div>
+        {/* Single hierarchy: display heading → muted subhead (brand icon inline). */}
+        <div className="flex items-start gap-3">
+          <span className="mt-1 text-moss" aria-hidden>
+            <Sprout className="h-7 w-7" />
+          </span>
           <div>
             <div className="flex flex-wrap items-center gap-2.5">
               <h1 className="font-display text-h2 font-bold text-ink">
@@ -35,7 +36,7 @@ export function Header({
                 District Agro-Advisory
               </span>
             </div>
-            <p className="mt-0.5 text-sm text-ink-secondary">
+            <p className="mt-0.5 text-sm text-ink-muted">
               Hyper-local crop science, weather & farm economics
             </p>
           </div>

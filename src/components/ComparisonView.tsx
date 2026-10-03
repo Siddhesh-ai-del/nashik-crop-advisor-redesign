@@ -77,19 +77,20 @@ export function ComparisonView({
             aria-label="Comparative crop analysis"
           >
             <div className="mb-5 flex items-start justify-between gap-3">
-              <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
-                  <GitCompareArrows className="h-5 w-5" aria-hidden />
-                </div>
-                <div>
+              {/* Single hierarchy: display heading → muted subhead (icon inline). */}
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-moss" aria-hidden>
+                    <GitCompareArrows className="h-5 w-5" />
+                  </span>
                   <h2 className="font-display text-lg font-bold tracking-tight text-ink">
                     Comparative Analysis
                   </h2>
-                  <p className="text-sm text-ink-secondary">
-                    All recommended crops side by side — financials and
-                    suitability.
-                  </p>
                 </div>
+                <p className="mt-1 text-sm text-ink-muted">
+                  All recommended crops side by side — financials and
+                  suitability.
+                </p>
               </div>
               <button
                 type="button"

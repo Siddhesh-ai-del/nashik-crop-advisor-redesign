@@ -34,20 +34,22 @@ export function SectionTitle({
 }) {
   return (
     <div className="flex flex-wrap items-start justify-between gap-3 px-6 pt-6">
-      <div className="flex items-start gap-3">
-        {icon ? (
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-moss-light text-moss ring-1 ring-moss/10">
-            {icon}
-          </div>
-        ) : null}
-        <div>
+      <div className="min-w-0">
+        {/* Single hierarchy: display heading → muted subhead. The icon sits
+            inline in moss instead of a tinted square tile. */}
+        <div className="flex items-center gap-2">
+          {icon ? (
+            <span className="text-moss" aria-hidden>
+              {icon}
+            </span>
+          ) : null}
           <h2 className="font-display text-h3 font-semibold text-ink">
             {title}
           </h2>
-          {subtitle ? (
-            <p className="mt-0.5 text-sm text-ink-secondary">{subtitle}</p>
-          ) : null}
         </div>
+        {subtitle ? (
+          <p className="mt-1 text-sm text-ink-muted">{subtitle}</p>
+        ) : null}
       </div>
       {right ? <div className="shrink-0">{right}</div> : null}
     </div>

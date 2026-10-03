@@ -1,7 +1,18 @@
 import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { GlassPanel } from "./glass/GlassPanel";
 
+/**
+ * SectionCard — the single conversion point for plan 4.5: every card in the
+ * app flows through here, so swapping the shell to GlassPanel (locked `panel`
+ * optics — refraction confined to the rim, flat centres) converts all 10+
+ * cards at once. The base styling (radius, border, tint, `print-break`) lives
+ * in GlassPanel; callers only pass layout/padding classes as before.
+ *
+ * The old `backdrop-blur-sm` is intentionally dropped — the material's
+ * frost (`blur(6px) saturate(1.12)`) replaces it.
+ */
 export function SectionCard({
   children,
   className,
@@ -9,16 +20,7 @@ export function SectionCard({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div
-      className={cn(
-        "rounded-xl border border-border/60 bg-surface/80 shadow-1 backdrop-blur-sm print-break",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <GlassPanel className={className}>{children}</GlassPanel>;
 }
 
 export function SectionTitle({

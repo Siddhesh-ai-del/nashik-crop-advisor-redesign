@@ -20,8 +20,9 @@ import { CropDetails } from "./CropDetails";
 import { ComparisonView } from "./ComparisonView";
 import { ExportButton } from "./ExportButton";
 import { PrintSummary } from "./PrintSummary";
-import { FadeIn, SectionCard, Skeleton } from "./ui";
+import { FadeIn, SectionCard } from "./ui";
 import { Tabs, TabsContent } from "./ui/tabs";
+import { RecommendationLoader } from "./RecommendationLoader";
 
 export function Dashboard() {
   const {
@@ -145,18 +146,7 @@ export function Dashboard() {
 
             <div className="space-y-6 p-6">
               {loadingRecommendation ? (
-                <div className="space-y-6">
-                  <div className="flex gap-2.5">
-                    <Skeleton className="h-12 w-56 rounded-lg" />
-                    <Skeleton className="h-12 w-56 rounded-lg" />
-                    <Skeleton className="hidden h-12 w-56 rounded-lg lg:block" />
-                  </div>
-                  <Skeleton className="h-28 w-full" />
-                  <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                    <Skeleton className="h-64 w-full" />
-                    <Skeleton className="h-64 w-full" />
-                  </div>
-                </div>
+                <RecommendationLoader />
               ) : activeCrop ? (
                 /* Tabs root: CropSwitcher renders the tab list, CropDetails is
                    the tab panel. Value tracks activeCrop so a stale tier after

@@ -167,44 +167,46 @@ export function WeatherWidget({
             <Skeleton className="h-28 w-full" />
           </div>
         ) : current ? (
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[auto_1fr]">
-            <div className="flex items-center gap-4 rounded-[16px] border border-border/40 bg-canvas-warm/40 p-5">
-              <div className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-surface text-moss ring-1 ring-border/30">
-                <WeatherIcon code={current.weatherCode} className="h-8 w-8" />
-              </div>
-              <div>
-                <p className="text-3xl font-bold tracking-tight text-ink">
-                  {Math.round(current.temperature)}
-                  <span className="text-lg text-ink-muted">°C</span>
-                </p>
-                <p className="text-xs text-ink-secondary">
-                  {wmoMeta(current.weatherCode).label}
-                </p>
-              </div>
-              <div className="ml-2 grid grid-cols-3 gap-x-4 gap-y-1 border-l border-border/30 pl-4">
-                <div>
-                  <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
-                    <Thermometer className="h-3 w-3" aria-hidden /> Range
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)]">
+            <div className="min-w-0 rounded-[16px] border border-border/40 bg-canvas-warm/40 p-5">
+              <div className="flex items-center gap-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-surface text-moss ring-1 ring-border/30">
+                  <WeatherIcon code={current.weatherCode} className="h-8 w-8" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-3xl font-bold tracking-tight text-ink">
+                    {Math.round(current.temperature)}
+                    <span className="text-lg text-ink-muted">°C</span>
                   </p>
-                  <p className="text-sm font-semibold text-ink">
+                  <p className="truncate text-xs text-ink-secondary">
+                    {wmoMeta(current.weatherCode).label}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-x-3 gap-y-2 border-t border-border/30 pt-3">
+                <div className="min-w-0">
+                  <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
+                    <Thermometer className="h-3 w-3 shrink-0" aria-hidden /> Range
+                  </p>
+                  <p className="truncate text-sm font-semibold text-ink">
                     {weather.forecast[0]
                       ? `${Math.round(weather.forecast[0].tempMax)}° / ${Math.round(weather.forecast[0].tempMin)}°`
                       : "—"}
                   </p>
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
-                    <Droplets className="h-3 w-3" aria-hidden /> Humidity
+                    <Droplets className="h-3 w-3 shrink-0" aria-hidden /> Humidity
                   </p>
-                  <p className="text-sm font-semibold text-ink">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {Math.round(current.humidity)}%
                   </p>
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
-                    <Wind className="h-3 w-3" aria-hidden /> Wind
+                    <Wind className="h-3 w-3 shrink-0" aria-hidden /> Wind
                   </p>
-                  <p className="text-sm font-semibold text-ink">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {Math.round(current.windSpeed)} km/h
                   </p>
                 </div>

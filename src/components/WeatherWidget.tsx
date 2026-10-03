@@ -135,7 +135,7 @@ export function WeatherWidget({
   const current = weather?.current;
 
   return (
-    <SectionCard className="print-hide">
+    <SectionCard className="flex h-full flex-col print-hide">
       <SectionTitle
         icon={<CloudSun className="h-4 w-4" aria-hidden />}
         title={`Live Microclimate · ${regionMeta.shortName}`}
@@ -160,14 +160,16 @@ export function WeatherWidget({
         }
       />
 
-      <div className="px-6 pt-5">
+      {/* flex-1: this block absorbs leftover column height so the card
+          never leaves dead whitespace under it (params column is taller) */}
+      <div className="flex-1 px-6 pt-5">
         {loading && !weather ? (
           <div className="space-y-3">
             <Skeleton className="h-20 w-full" />
             <Skeleton className="h-28 w-full" />
           </div>
         ) : current ? (
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-4 lg:h-full lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)]">
             <div className="min-w-0 rounded-lg border border-border/40 bg-canvas-warm/40 p-5">
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-surface text-moss ring-1 ring-border/30">

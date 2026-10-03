@@ -51,9 +51,11 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 
 ## Phase 4 — Liquid Glass *(the heavy pass)*
 
-- [ ] **4.1 Install.** `npm i @samasante/liquid-glass` (v0.1.1, peer react/react-dom ≥18 ✔).
-- [ ] **4.2 Build the backdrop (load-bearing).** `src/components/backdrop/AmbientBackdrop.tsx` — non-animated gradient-mesh / subtle field-imagery layer fixed behind everything. **Glass refracts what's behind it; on a flat dark fill it looks like plain blur.** Mounted in `layout.tsx`.
-- [ ] **4.3 Glass primitives.** `src/components/glass/`: `GlassPanel` (cards), `GlassBar` (sticky header/nav), `GlassChip` (presets/badges), `GlassModal`, plus `src/lib/glass.ts` with **2 locked `optics` presets** (`panel`, `chrome`). Include `prefers-reduced-motion` handling and `print:hidden` guard.
+- [x] **4.1 Install.** `npm i @samasante/liquid-glass` (v0.1.1, peer react/react-dom ≥18 ✔).
+
+- [x] **4.2 Build the backdrop (load-bearing).** `src/components/backdrop/AmbientBackdrop.tsx` — non-animated gradient-mesh / subtle field-imagery layer fixed behind everything. **Glass refracts what's behind it; on a flat dark fill it looks like plain blur.** Mounted in `layout.tsx`. *(3 layers: colour pools + furrow bands + vignette; pixel-sampled visible; `print:hidden`)*
+
+- [x] **4.3 Glass primitives.** `src/components/glass/`: `GlassPanel` (cards), `GlassBar` (sticky header/nav), `GlassChip` (presets/badges), `GlassModal`, plus `src/lib/glass.ts` with **2 locked `optics` presets** (`panel`, `chrome`). Include `prefers-reduced-motion` handling and `print:hidden` guard. *(`glass-surface` marker class keys both global guards in globals.css)*
 - [ ] **4.4 Apply — chrome.** Sticky header, preset chip row, floating Compare/Export action bar, error banner, ComparisonView modal. *(`Header.tsx`, `PresetButtons.tsx`, `Dashboard.tsx`, `ComparisonView.tsx`)*
 - [ ] **4.5 Apply — cards (the "heavy" choice).** Convert `ui.tsx:SectionCard` → `GlassPanel` **in one place** so all 10+ cards update at once (CropDetails, Radar, Financial, Pest, Water, Timeline…).
 - [ ] **4.6 Print suppression.** Every glass surface excluded from `@media print` so `PrintSummary` stays solid. *(`globals.css`, glass components)*

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Source_Serif_4, Inter } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { AmbientBackdrop } from "@/components/backdrop/AmbientBackdrop";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -54,6 +55,10 @@ export default function RootLayout({
       className={`${sourceSerif.variable} ${inter.variable} dark h-full antialiased`}
     >
       <body className="min-h-full">
+        {/* Load-bearing for every glass surface: the lenses refract this
+            gradient mesh instead of a flat fill (plan 4.2). Static, z-below
+            content, hidden in print. */}
+        <AmbientBackdrop />
         <Providers>{children}</Providers>
       </body>
     </html>

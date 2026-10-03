@@ -205,9 +205,68 @@ body {
   90% { transform: translate(0, -1%); }
 }
 
+/* Phase 4.3 — reduced-motion guard for glass surfaces. The lens and the
+   AmbientBackdrop are static by design (no loops, no `live` re-raster), so
+   the only motion a glass shell can carry is a caller-added transition on
+   its own box — kill those under `prefers-reduced-motion`. */
+@media (prefers-reduced-motion: reduce) {
+  .glass-surface {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media print {
   body {
     background: #ffffff;
+  }
+
+  /* --- Phase 4.6: paper palette --------------------------------------
+     Phase 1.4 flipped the ramp dark, which left `--ink: #e8e6e1` light
+     text on the white print background — invisible on paper. Re-flip the
+     full ramp to dark-on-white for print only, so PrintSummary (and any
+     card that reaches paper) stays legible. Every `text-*`/`bg-*`
+     utility resolves through these vars, so one override fixes all. */
+  :root {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #14171a;
+    --canvas: #ffffff;
+    --canvas-warm: #f6f4f0;
+    --canvas-deep: #ebe9e4;
+    --surface: #ffffff;
+    --surface-elevated: #ffffff;
+    --ink: #14171a;
+    --ink-secondary: #42474c;
+    --ink-muted: #6d737a;
+    --border: #d5d8dc;
+    --border-light: #e4e7ea;
+    --moss: #35602a;
+    --moss-light: #e9f0e5;
+    --moss-deep: #2c5123;
+    --sage: #5e6b52;
+    --sage-light: #eaede4;
+    --terracotta: #a4552d;
+    --terracotta-light: #f7e9e2;
+    --clay: #8a6a44;
+    --clay-light: #f1e8dc;
+    --stone: #6b655e;
+    --olive: #5d6b34;
+    --olive-light: #eef1e6;
+  }
+
+  /* --- Phase 4.6: glass never reaches paper --------------------------
+     `!important` in an author stylesheet beats the inline `filter:
+     url(#lg-...)` / `backdrop-filter: blur(...) saturate(...) url(...)`
+     styles the lens mounts at runtime. The element keeps its box and
+     content; only the material is dropped, so cards print as solid
+     panels and PrintSummary stays opaque. AmbientBackdrop is
+     `print:hidden` at the source; this is the second line of defence. */
+  .glass-surface {
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   .print-hide {

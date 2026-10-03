@@ -28,7 +28,7 @@ export function Header({
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-[family-name:var(--font-source-serif)] text-xl font-bold tracking-tight text-ink">
+              <h1 className="font-display text-h2 font-bold text-ink">
                 Nashik Crop Advisor
               </h1>
               <span className="rounded-full bg-moss-light px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-moss-deep ring-1 ring-inset ring-moss/10">

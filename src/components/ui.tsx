@@ -41,7 +41,7 @@ export function SectionTitle({
           </div>
         ) : null}
         <div>
-          <h2 className="font-[family-name:var(--font-source-serif)] text-base font-semibold tracking-tight text-ink">
+          <h2 className="font-display text-h3 font-semibold text-ink">
             {title}
           </h2>
           {subtitle ? (

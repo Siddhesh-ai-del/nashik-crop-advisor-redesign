@@ -125,7 +125,7 @@ export function ParameterPanel({
           <MapPin className="h-4.5 w-4.5" aria-hidden />
         </div>
         <div>
-          <h2 className="font-[family-name:var(--font-source-serif)] text-base font-semibold tracking-tight text-ink">
+          <h2 className="font-display text-h3 font-semibold text-ink">
             Field Parameters
           </h2>
           <p className="mt-0.5 text-sm text-ink-secondary">

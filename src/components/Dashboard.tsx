@@ -103,7 +103,7 @@ export function Dashboard() {
                   <Trophy className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <h2 className="font-[family-name:var(--font-source-serif)] text-base font-bold tracking-tight text-ink">
+                  <h2 className="font-display text-h3 font-bold text-ink">
                     Crop Recommendations
                   </h2>
                   <p className="text-xs text-ink-secondary">

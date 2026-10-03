@@ -79,7 +79,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-[family-name:var(--font-source-serif)] text-sm font-semibold text-ink">
+                    <p className="font-display text-sm font-semibold text-ink">
                       {stage.name}
                     </p>
                     <Badge tone={meta.tone}>{meta.label}</Badge>

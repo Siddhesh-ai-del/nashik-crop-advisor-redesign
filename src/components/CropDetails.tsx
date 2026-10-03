@@ -38,7 +38,7 @@ export function CropDetails({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
-                <h2 className="font-[family-name:var(--font-source-serif)] text-2xl font-bold tracking-tight text-ink">
+                <h2 className="font-display text-h1 font-bold text-ink">
                   {crop.crop}
                 </h2>
                 <Badge tone={TIER_BADGE[activeTier]}>{crop.tag}</Badge>

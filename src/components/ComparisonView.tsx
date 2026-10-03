@@ -82,7 +82,7 @@ export function ComparisonView({
                   <GitCompareArrows className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <h2 className="font-[family-name:var(--font-source-serif)] text-lg font-bold tracking-tight text-ink">
+                  <h2 className="font-display text-lg font-bold tracking-tight text-ink">
                     Comparative Analysis
                   </h2>
                   <p className="text-sm text-ink-secondary">

@@ -25,7 +25,7 @@ export function PrintSummary({
   return (
     <div className="print-only print-break">
       <div className="mb-6 border-b-2 border-ink pb-4">
-        <h1 className="font-[family-name:var(--font-source-serif)] text-2xl font-bold text-ink">
+        <h1 className="font-display text-2xl font-bold text-ink">
           Nashik Crop Advisor — Advisory Summary Sheet
         </h1>
         <p className="mt-1 text-sm text-ink-secondary">
@@ -48,7 +48,7 @@ export function PrintSummary({
             : 0;
         return (
           <div key={crop.id} className="mb-5 print-break">
-            <h2 className="font-[family-name:var(--font-source-serif)] text-lg font-bold text-ink">
+            <h2 className="font-display text-lg font-bold text-ink">
               {crop.crop}
               <span className="ml-2 text-sm font-semibold text-ink-secondary">
                 ({crop.tag})

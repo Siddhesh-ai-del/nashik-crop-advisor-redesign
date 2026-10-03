@@ -40,6 +40,26 @@
   --shadow-3: 0 8px 40px rgba(61, 43, 31, 0.12), 0 2px 8px rgba(61, 43, 31, 0.06);
   --shadow-glow: 0 0 6px rgba(90, 122, 77, 0.3);
 
+  /* Type scale — real size contrast (was: everything text-xs/sm) */
+  --text-display: 2.5rem;
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: 1.875rem;
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h2: 1.375rem;
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: 1.125rem;
+  --text-h3--line-height: 1.35;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.45;
+
+  /* Display face: Source Serif 4 for headings (font-display utility) */
+  --font-display: var(--font-source-serif), Georgia, serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-canvas: var(--canvas);

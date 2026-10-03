@@ -46,7 +46,7 @@ export function Dashboard() {
       <PrintSummary
         params={params}
         crops={crops}
-        generatedAt={recommendation?.generatedAt ?? new Date().toISOString()}
+        generatedAt={recommendation?.generatedAt ?? ""}
         source={recommendation?.source ?? "fallback"}
       />
 

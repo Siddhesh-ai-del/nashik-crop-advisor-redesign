@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type {
   CropRecommendation,
   RecommendationRequest,
@@ -15,6 +18,18 @@ export function PrintSummary({
   generatedAt: string;
   source: "ai" | "fallback";
 }) {
+  // Format the timestamp only on the client to avoid SSR/client mismatches
+  // (server locale/timezone and render-time differ from the browser).
+  const [generatedLabel, setGeneratedLabel] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!generatedAt) {
+      setGeneratedLabel(null);
+      return;
+    }
+    setGeneratedLabel(new Date(generatedAt).toLocaleString("en-IN"));
+  }, [generatedAt]);
+
   return (
     <div className="print-only print-break">
       <div className="mb-6 border-b-2 border-ink pb-4">
@@ -27,7 +42,7 @@ export function PrintSummary({
           {SOILS[params.soil].name} · Water: {WATER_LEVELS[params.water].name}
         </p>
         <p className="mt-1 text-xs text-ink-muted">
-          Generated {new Date(generatedAt).toLocaleString("en-IN")} ·{" "}
+          {generatedLabel ? `Generated ${generatedLabel} · ` : ""}
           {source === "ai" ? "Gemini AI assisted" : "Scientific fallback dataset"}
         </p>
       </div>

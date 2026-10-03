@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    watchOptions: {
-      ignored: [".playwright-mcp/**", "**/*.png"],
-    },
-  },
+  /* config options here */
 };
 
 export default nextConfig;

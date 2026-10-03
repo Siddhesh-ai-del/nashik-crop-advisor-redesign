@@ -128,14 +128,15 @@ export function Dashboard() {
                     Offline fallback
                   </span>
                 )}
-                <button
-                  type="button"
-                  onClick={() => setCompareOpen(true)}
-                  disabled={crops.length < 2}
-                  className="rounded-[12px] border border-border/60 bg-surface/80 px-3.5 py-2.5 text-sm font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light/50 hover:text-moss-deep disabled:opacity-40"
-                >
-                  Compare all ({crops.length})
-                </button>
+                {recommendation && crops.length >= 2 ? (
+                  <button
+                    type="button"
+                    onClick={() => setCompareOpen(true)}
+                    className="rounded-[12px] border border-border/60 bg-surface/80 px-3.5 py-2.5 text-sm font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light/50 hover:text-moss-deep"
+                  >
+                    Compare all ({crops.length})
+                  </button>
+                ) : null}
                 <ExportButton />
               </div>
             </div>

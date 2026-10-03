@@ -40,12 +40,12 @@ export function CropSwitcher({
             className={cn(
               "relative flex min-w-0 items-center gap-2.5 rounded-lg border px-4 py-3 text-left transition-all duration-300",
               active
-                ? "border-moss/40 bg-moss text-white shadow-2"
+                ? "border-moss/40 bg-moss text-canvas shadow-2"
                 : "border-border/40 bg-surface/60 text-ink-secondary hover:border-moss/20 hover:bg-moss-light/30",
             )}
           >
             <Icon
-              className={cn("h-4 w-4 shrink-0", active ? "text-white/90" : "text-moss")}
+              className={cn("h-4 w-4 shrink-0", active ? "text-canvas/90" : "text-moss")}
               aria-hidden
             />
             <span className="min-w-0">
@@ -55,7 +55,7 @@ export function CropSwitcher({
               <span
                 className={cn(
                   "block text-[11px] leading-tight",
-                  active ? "text-white/70" : "text-ink-muted",
+                  active ? "text-canvas/70" : "text-ink-muted",
                 )}
               >
                 {meta.label}

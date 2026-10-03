@@ -21,7 +21,7 @@ import type { CropRecommendation } from "@/lib/types";
 import { formatRupees } from "@/lib/constants";
 import { SectionCard, SectionTitle, Badge } from "./ui";
 
-const COLORS = ["#5a7a4d", "#c4704b", "#7a8a5c"];
+const COLORS = ["#7ba069", "#d98a63", "#a3b573"];
 
 const METRIC_KEYS: { key: keyof CropRecommendation["radarMetrics"]; label: string }[] = [
   { key: "yieldPotential", label: "Yield" },
@@ -123,16 +123,16 @@ export function ComparisonView({
                       margin={{ top: 8, right: 8, left: -8, bottom: 0 }}
                       barSize={14}
                     >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#d4c9b8" strokeOpacity={0.5} vertical={false} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#2a2e33" strokeOpacity={0.5} vertical={false} />
                       <XAxis
                         dataKey="name"
-                        tick={{ fontSize: 11, fill: "#6b5e50", fontFamily: "var(--font-inter)" }}
+                        tick={{ fontSize: 11, fill: "#a8a49c", fontFamily: "var(--font-inter)" }}
                         axisLine={false}
                         tickLine={false}
                         interval={0}
                       />
                       <YAxis
-                        tick={{ fontSize: 11, fill: "#8a7d6f" }}
+                        tick={{ fontSize: 11, fill: "#74706a" }}
                         axisLine={false}
                         tickLine={false}
                         tickFormatter={(v) =>
@@ -142,18 +142,18 @@ export function ComparisonView({
                       <Tooltip
                         contentStyle={{
                           borderRadius: 12,
-                          border: "1px solid #d4c9b8",
+                          border: "1px solid #2a2e33",
                           fontSize: 12,
-                          background: "#faf7f2",
+                          background: "#1c1f22",
                           fontFamily: "var(--font-inter)",
-                          color: "#3d2b1f",
+                          color: "#e8e6e1",
                         }}
                         formatter={(value) => formatRupees(Number(value))}
                       />
                       <Legend wrapperStyle={{ fontSize: 12, fontFamily: "var(--font-inter)" }} />
-                      <Bar dataKey="Input" fill="#b8a99a" radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="Revenue" fill="#7a8a5c" radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="Net Profit" fill="#5a7a4d" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="Input" fill="#8a8078" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="Revenue" fill="#a3b573" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="Net Profit" fill="#7ba069" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -167,17 +167,17 @@ export function ComparisonView({
                 <div className="mt-3 h-72 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-                      <PolarGrid stroke="#d4c9b8" strokeOpacity={0.6} />
-                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: "#6b5e50", fontFamily: "var(--font-inter)" }} />
-                      <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fontSize: 10, fill: "#8a7d6f" }} tickCount={5} />
+                      <PolarGrid stroke="#2a2e33" strokeOpacity={0.6} />
+                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: "#a8a49c", fontFamily: "var(--font-inter)" }} />
+                      <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fontSize: 10, fill: "#74706a" }} tickCount={5} />
                       <Tooltip
                         contentStyle={{
                           borderRadius: 12,
-                          border: "1px solid #d4c9b8",
+                          border: "1px solid #2a2e33",
                           fontSize: 12,
-                          background: "#faf7f2",
+                          background: "#1c1f22",
                           fontFamily: "var(--font-inter)",
-                          color: "#3d2b1f",
+                          color: "#e8e6e1",
                         }}
                         formatter={(value, name) => [`${value} / 100`, name]}
                       />

@@ -59,7 +59,7 @@ export function PresetButtons({
                   className={cn(
                     "flex h-9 w-9 items-center justify-center rounded-sm transition-all duration-300",
                     active
-                      ? "bg-moss text-white shadow-2"
+                      ? "bg-moss text-canvas shadow-2"
                       : "bg-moss-light text-moss ring-1 ring-moss/10",
                   )}
                 >

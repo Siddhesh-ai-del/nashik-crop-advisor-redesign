@@ -1,30 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f0e8;
-  --foreground: #3d2b1f;
-  --canvas: #f5f0e8;
-  --canvas-warm: #efe8dc;
-  --canvas-deep: #e8dfd0;
-  --surface: #faf7f2;
-  --surface-elevated: #ffffff;
-  --ink: #3d2b1f;
-  --ink-secondary: #6b5e50;
-  --ink-muted: #8a7d6f;
-  --border: #d4c9b8;
-  --border-light: #e2d9cc;
-  --moss: #5a7a4d;
-  --moss-light: #e8f0e4;
-  --moss-deep: #3d5a32;
-  --sage: #99a88c;
-  --sage-light: #f0f3ec;
-  --terracotta: #c4704b;
-  --terracotta-light: #faf0eb;
+  /* Native controls (checkboxes, inputs, scrollbars) render dark */
+  color-scheme: dark;
+  /* Dark charcoal ramp */
+  --background: #0a0b0c;
+  --foreground: #e8e6e1;
+  --canvas: #0a0b0c;
+  --canvas-warm: #141618;
+  --canvas-deep: #1c1f22;
+  --surface: #141618;
+  --surface-elevated: #1c1f22;
+  --ink: #e8e6e1;
+  --ink-secondary: #a8a49c;
+  --ink-muted: #74706a;
+  --border: #2a2e33;
+  --border-light: #22262a;
+  /* Accents: moss → primary action green (brightened for dark canvas) */
+  --moss: #7ba069;
+  --moss-light: #1d2a1a;
+  --moss-deep: #9ec48c;
+  --sage: #8a9a7c;
+  --sage-light: #1a1f18;
+  --terracotta: #d98a63;
+  --terracotta-light: #2a1c15;
   --clay: #c9a882;
-  --clay-light: #f5efe6;
-  --stone: #b8a99a;
-  --olive: #7a8a5c;
-  --olive-light: #eff2e8;
+  --clay-light: #241f18;
+  --stone: #8a8078;
+  --olive: #a3b573;
+  --olive-light: #1e2218;
 }
 
 @theme inline {
@@ -34,11 +38,11 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* Elevation ladder — 3 tokens replace 14 bespoke shadow literals */
-  --shadow-1: 0 1px 3px rgba(61, 43, 31, 0.05), 0 1px 2px rgba(61, 43, 31, 0.04);
-  --shadow-2: 0 2px 8px rgba(61, 43, 31, 0.08), 0 1px 3px rgba(61, 43, 31, 0.04);
-  --shadow-3: 0 8px 40px rgba(61, 43, 31, 0.12), 0 2px 8px rgba(61, 43, 31, 0.06);
-  --shadow-glow: 0 0 6px rgba(90, 122, 77, 0.3);
+  /* Elevation ladder — deep neutral shadows for dark canvas */
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-3: 0 8px 40px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 6px rgba(123, 160, 105, 0.45);
 
   /* Type scale — real size contrast (was: everything text-xs/sm) */
   --text-display: 2.5rem;
@@ -84,24 +88,24 @@
   --color-stone: var(--stone);
   --color-olive: var(--olive);
   --color-olive-light: var(--olive-light);
-  --color-leaf-50: #f0f5ec;
-  --color-leaf-100: #e0ebd8;
-  --color-leaf-200: #c4d8b8;
-  --color-leaf-300: #99b882;
-  --color-leaf-400: #7aa35c;
+  --color-leaf-50: #1a2416;
+  --color-leaf-100: #1f3318;
+  --color-leaf-200: #2f4826;
+  --color-leaf-300: #3d5a32;
+  --color-leaf-400: #4a6a3d;
   --color-leaf-500: #5a7a4d;
-  --color-leaf-600: #4a6a3d;
-  --color-leaf-700: #3d5a32;
-  --color-leaf-800: #2f4826;
-  --color-leaf-900: #1f3318;
-  --color-harvest-50: #faf5ed;
-  --color-harvest-100: #f3e8d4;
-  --color-harvest-200: #e8d4b0;
-  --color-harvest-300: #d4b87a;
-  --color-harvest-400: #c49e54;
-  --color-harvest-500: #b08838;
-  --color-harvest-600: #96722c;
-  --color-harvest-700: #7a5c22;
+  --color-leaf-600: #7ba069;
+  --color-leaf-700: #9ec48c;
+  --color-leaf-800: #c4d8b8;
+  --color-leaf-900: #e0ebd8;
+  --color-harvest-50: #241d10;
+  --color-harvest-100: #2e2413;
+  --color-harvest-200: #3f3218;
+  --color-harvest-300: #5a4720;
+  --color-harvest-400: #7a5c22;
+  --color-harvest-500: #96722c;
+  --color-harvest-600: #b08838;
+  --color-harvest-700: #d4b87a;
 }
 
 html {

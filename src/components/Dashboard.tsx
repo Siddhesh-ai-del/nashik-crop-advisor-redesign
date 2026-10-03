@@ -99,7 +99,7 @@ export function Dashboard() {
           <SectionCard className="overflow-hidden print-break">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/40 bg-canvas-warm/50 px-6 py-5">
               <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss text-white shadow-2">
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-moss text-canvas shadow-2">
                   <Trophy className="h-5 w-5" aria-hidden />
                 </div>
                 <div>

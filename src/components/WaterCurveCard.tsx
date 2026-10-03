@@ -28,42 +28,42 @@ export function WaterCurveCard({ crop }: { crop: CropRecommendation }) {
           <AreaChart data={data} margin={{ top: 10, right: 12, left: -16, bottom: 0 }}>
             <defs>
               <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#99a88c" stopOpacity={0.45} />
-                <stop offset="100%" stopColor="#99a88c" stopOpacity={0.03} />
+                <stop offset="0%" stopColor="#8a9a7c" stopOpacity={0.45} />
+                <stop offset="100%" stopColor="#8a9a7c" stopOpacity={0.03} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#d4c9b8" strokeOpacity={0.5} vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#2a2e33" strokeOpacity={0.5} vertical={false} />
             <XAxis
               dataKey="stage"
-              tick={{ fontSize: 11, fill: "#6b5e50", fontFamily: "var(--font-inter)" }}
+              tick={{ fontSize: 11, fill: "#a8a49c", fontFamily: "var(--font-inter)" }}
               axisLine={false}
               tickLine={false}
               interval={0}
             />
             <YAxis
-              tick={{ fontSize: 11, fill: "#8a7d6f" }}
+              tick={{ fontSize: 11, fill: "#74706a" }}
               axisLine={false}
               tickLine={false}
-              label={{ value: "mm", angle: -90, position: "insideLeft", fontSize: 10, fill: "#8a7d6f" }}
+              label={{ value: "mm", angle: -90, position: "insideLeft", fontSize: 10, fill: "#74706a" }}
             />
             <Tooltip
               contentStyle={{
                 borderRadius: 12,
-                border: "1px solid #d4c9b8",
+                border: "1px solid #2a2e33",
                 fontSize: 12,
-                background: "#faf7f2",
+                background: "#1c1f22",
                 fontFamily: "var(--font-inter)",
-                color: "#3d2b1f",
+                color: "#e8e6e1",
               }}
               formatter={(value) => [`${value} mm`, "Water need"]}
             />
             <Area
               type="monotone"
               dataKey="waterNeed"
-              stroke="#7a8a5c"
+              stroke="#a3b573"
               strokeWidth={2}
               fill="url(#waterGradient)"
-              activeDot={{ r: 5, fill: "#5a7a4d", stroke: "#faf7f2", strokeWidth: 2 }}
+              activeDot={{ r: 5, fill: "#7ba069", stroke: "#1c1f22", strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>

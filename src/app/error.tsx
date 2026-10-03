@@ -24,7 +24,7 @@ export default function Error({
       <button
         type="button"
         onClick={reset}
-        className="rounded-md bg-moss px-5 py-2.5 text-sm font-semibold text-white shadow-2 transition-all duration-300 hover:bg-moss-deep"
+        className="rounded-md bg-moss px-5 py-2.5 text-sm font-semibold text-canvas shadow-2 transition-all duration-300 hover:bg-moss-deep"
       >
         Try again
       </button>

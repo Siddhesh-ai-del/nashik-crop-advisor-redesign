@@ -67,7 +67,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                     className={cn(
                       "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-all duration-300",
                       allDone
-                        ? "bg-moss text-white shadow-2"
+                        ? "bg-moss text-canvas shadow-2"
                         : "bg-moss-light text-moss ring-1 ring-moss/15",
                     )}
                   >

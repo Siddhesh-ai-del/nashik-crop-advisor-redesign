@@ -23,7 +23,7 @@ export function Header({
     <header className="border-b border-border/40 bg-canvas/90 backdrop-blur-md print-hide">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-moss text-white shadow-2">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-moss text-canvas shadow-2">
             <Sprout className="h-6 w-6" aria-hidden />
           </div>
           <div>

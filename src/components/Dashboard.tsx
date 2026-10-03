@@ -20,6 +20,7 @@ import { Tabs, TabsContent } from "./ui/tabs";
 import { RecommendationLoader } from "./RecommendationLoader";
 import { GlassPanel } from "./glass/GlassPanel";
 import { GlassChip } from "./glass/GlassChip";
+import { InteractiveHoverButton } from "./block/interactive-hover-button";
 
 export function Dashboard() {
   const {
@@ -140,13 +141,13 @@ export function Dashboard() {
                     </span>
                   )}
                   {recommendation && crops.length >= 2 ? (
-                    <button
+                    <InteractiveHoverButton
                       type="button"
                       onClick={() => setCompareOpen(true)}
-                      className="rounded-md border border-border/60 bg-surface/80 px-3.5 py-2.5 text-sm font-semibold text-ink-secondary transition-all hover:border-moss/30 hover:bg-moss-light/50 hover:text-moss-deep"
+                      className="px-4 py-2.5 text-sm"
                     >
                       Compare all ({crops.length})
-                    </button>
+                    </InteractiveHoverButton>
                   ) : null}
                   <ExportButton />
                 </div>

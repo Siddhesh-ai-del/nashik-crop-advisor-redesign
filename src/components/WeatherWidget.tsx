@@ -22,6 +22,7 @@ import type { AlertLevel, WeatherDay, WeatherResponse } from "@/lib/types";
 import { REGIONS, formatDateLabel, wmoMeta } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { SectionCard, SectionTitle, Skeleton } from "./ui";
+import { InteractiveHoverButton } from "./block/interactive-hover-button";
 
 const CATEGORY_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   sun: Sun,
@@ -38,7 +39,10 @@ const ALERT_ICONS: Record<AlertLevel, ComponentType<{ className?: string }>> = {
   critical: Bell,
 };
 
-const ALERT_TONES: Record<AlertLevel, { box: string; icon: string; chip: string }> = {
+const ALERT_TONES: Record<
+  AlertLevel,
+  { box: string; icon: string; chip: string }
+> = {
   info: {
     box: "border-sage/30 bg-sage-light/50",
     icon: "text-sage",
@@ -102,12 +106,17 @@ function ForecastStrip({
                 {i === 0 ? "Today" : formatDateLabel(day.date).split(",")[0]}
               </p>
               <div className="my-2.5 flex justify-center">
-                <WeatherIcon code={i === 0 ? currentCode : day.weatherCode} className="h-5 w-5 text-ink-secondary" />
+                <WeatherIcon
+                  code={i === 0 ? currentCode : day.weatherCode}
+                  className="h-5 w-5 text-ink-secondary"
+                />
               </div>
               <p className="text-sm font-bold text-ink">
                 {Math.round(day.tempMax)}°
               </p>
-              <p className="text-[11px] text-ink-muted">{Math.round(day.tempMin)}°</p>
+              <p className="text-[11px] text-ink-muted">
+                {Math.round(day.tempMin)}°
+              </p>
               <div className="mt-1.5 flex items-center justify-center gap-1 text-[10px] text-sage">
                 <Umbrella className="h-3 w-3" aria-hidden />
                 {day.precipitation.toFixed(0)}mm
@@ -144,18 +153,28 @@ export function WeatherWidget({
           <div className="flex items-center gap-2">
             {weather ? (
               <span className="rounded-full bg-clay-light px-2.5 py-0.5 text-[10px] font-medium text-ink-secondary">
-                {weather.source === "open-meteo" ? "Open-Meteo · live" : "offline estimate"}
+                {weather.source === "open-meteo"
+                  ? "Open-Meteo · live"
+                  : "offline estimate"}
               </span>
             ) : null}
-            <button
+            <InteractiveHoverButton
               type="button"
               onClick={onRefresh}
               disabled={loading}
-              className="flex items-center gap-1.5 rounded-sm border border-border/50 bg-surface/60 px-3 py-1.5 text-xs font-semibold text-ink-secondary transition-all hover:border-moss/25 hover:bg-moss-light/30 hover:text-moss-deep disabled:opacity-50"
+              icon={
+                <RefreshCw
+                  className={cn(
+                    "h-3.5 w-3.5 shrink-0",
+                    loading && "animate-spin",
+                  )}
+                  aria-hidden
+                />
+              }
+              className="px-3.5 py-2 text-xs"
             >
-              <RefreshCw className={cn("h-3.5 w-3.5", loading && "animate-spin")} aria-hidden />
               Refresh
-            </button>
+            </InteractiveHoverButton>
           </div>
         }
       />
@@ -188,7 +207,8 @@ export function WeatherWidget({
               <div className="mt-4 grid grid-cols-3 gap-x-3 gap-y-2 border-t border-border/30 pt-3">
                 <div className="min-w-0">
                   <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
-                    <Thermometer className="h-3 w-3 shrink-0" aria-hidden /> Range
+                    <Thermometer className="h-3 w-3 shrink-0" aria-hidden />{" "}
+                    Range
                   </p>
                   <p className="truncate text-sm font-semibold text-ink">
                     {weather.forecast[0]
@@ -198,7 +218,8 @@ export function WeatherWidget({
                 </div>
                 <div className="min-w-0">
                   <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-muted">
-                    <Droplets className="h-3 w-3 shrink-0" aria-hidden /> Humidity
+                    <Droplets className="h-3 w-3 shrink-0" aria-hidden />{" "}
+                    Humidity
                   </p>
                   <p className="truncate text-sm font-semibold text-ink">
                     {Math.round(current.humidity)}%
@@ -219,7 +240,10 @@ export function WeatherWidget({
               <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-widest text-ink-muted">
                 7-day forecast · precipitation
               </p>
-              <ForecastStrip forecast={weather.forecast} currentCode={current.weatherCode} />
+              <ForecastStrip
+                forecast={weather.forecast}
+                currentCode={current.weatherCode}
+              />
             </div>
           </div>
         ) : null}
@@ -239,13 +263,24 @@ export function WeatherWidget({
                 key={alert.id}
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={cn("flex items-start gap-3 rounded-lg border p-3.5", tone.box)}
+                className={cn(
+                  "flex items-start gap-3 rounded-lg border p-3.5",
+                  tone.box,
+                )}
               >
-                <Icon className={cn("mt-0.5 h-4 w-4 shrink-0", tone.icon)} aria-hidden />
+                <Icon
+                  className={cn("mt-0.5 h-4 w-4 shrink-0", tone.icon)}
+                  aria-hidden
+                />
                 <div>
                   <p className="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink">
                     {alert.title}
-                    <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide", tone.chip)}>
+                    <span
+                      className={cn(
+                        "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                        tone.chip,
+                      )}
+                    >
                       {alert.level}
                     </span>
                   </p>
@@ -257,7 +292,9 @@ export function WeatherWidget({
             );
           })}
           {!weather && !loading ? (
-            <p className="text-sm text-ink-muted">Weather alerts unavailable.</p>
+            <p className="text-sm text-ink-muted">
+              Weather alerts unavailable.
+            </p>
           ) : null}
         </div>
       </div>

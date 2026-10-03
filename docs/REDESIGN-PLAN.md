@@ -62,7 +62,7 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 
 ## Phase 5 — ObsidianUI feature components
 
-- [ ] **5.1** `interactive-hover-button` → Export/Print, Refresh, Compare actions.
+- [x] **5.1** `interactive-hover-button` → Export/Print, Refresh, Compare actions. *(Registry block adapted: the `scale-[100.8]` moss disc is the signature fill — hover floods the pill moss, so the hover row must stay `text-primary-foreground` (7.7:1 on moss), not re-tinted. Disc restructured as an always-present layer so the icon variant (Refresh's spinning `RefreshCw`) keeps the fill and rides the resting row out with the label; explicit `focus-visible` ring + `motion-reduce:transition-none`.)*
 - [ ] **5.2** `sonner` toasts → weather refresh, export, API errors (currently silent/inline).
 - [ ] **5.3** `flip-text` / `text-reel` → headline + crop-tier recommendation swap.
 - [ ] **5.4** `hover-img` (**needs `gsap`**) → crop card imagery. *Needs image assets sourced.*

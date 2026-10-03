@@ -24,7 +24,9 @@ export function GlassModal({
   return (
     <Glass
       optics={GLASS_CHROME}
-      filterResolution={1}
+      /* See GlassPanel — callers lay this shell out with `grid`/`block`
+         classes, so the inline inline-block default must not win. */
+      style={{ display: undefined }}
       className={cn(
         GLASS_SURFACE,
         "rounded-xl border border-border/50 bg-surface/90 shadow-3",

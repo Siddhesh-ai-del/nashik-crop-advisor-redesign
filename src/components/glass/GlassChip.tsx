@@ -22,7 +22,10 @@ export function GlassChip({
   return (
     <Glass
       optics={GLASS_CHROME}
-      filterResolution={1}
+      /* No `style` override here on purpose: material mode's inline
+         `display:inline-block` shrink-wrap is exactly right for a pill —
+         the action-bar pill wraps its buttons, and preset chips are grid
+         children anyway (grid blockifies inline-block). */
       className={cn(
         GLASS_SURFACE,
         "rounded-full border border-border/50 bg-surface/80 shadow-1",

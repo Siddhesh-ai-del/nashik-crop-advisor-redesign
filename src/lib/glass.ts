@@ -14,8 +14,10 @@ import type { GlassOptics } from "@samasante/liquid-glass";
  * heavier frost for legibility over scrolling content, stronger rim bend
  * and specular, full 512px map (only 1–2 mounted at a time).
  *
- * Both stay off the animation path: `filterResolution={1}` at the call site,
- * no `live`, no motion values — the map only regenerates on resize.
+ * Both stay off the animation path: no `live`, no motion values — the
+ * displacement map only re-rasters on resize, and `mapSize` (not a call-site
+ * `filterResolution`, which would eject us out of material mode — see the
+ * `isMaterial` gate in the lib) is the cost lever.
  */
 export const GLASS_PANEL: GlassOptics = {
   mapSize: 256,

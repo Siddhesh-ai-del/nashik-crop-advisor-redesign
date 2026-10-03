@@ -23,7 +23,9 @@ export function GlassBar({
   return (
     <Glass
       optics={GLASS_CHROME}
-      filterResolution={1}
+      /* See GlassPanel — drop the inline inline-block default so the bar
+         lays out as a normal block (full width of its sticky wrapper). */
+      style={{ display: undefined }}
       className={cn(
         GLASS_SURFACE,
         "border border-border/50 bg-canvas/75 shadow-1",

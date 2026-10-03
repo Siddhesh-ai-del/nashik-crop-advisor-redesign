@@ -25,7 +25,12 @@ export function GlassPanel({
   return (
     <Glass
       optics={GLASS_PANEL}
-      filterResolution={1}
+      /* Material mode defaults to `display:inline-block` (pill shrink-wrap)
+         as an INLINE style, which would beat every Tailwind display class
+         (`flex`, `grid`, plain `block`) callers pass via className.
+         `display: undefined` drops the inline declaration so the caller's
+         class decides; a card with no display class stays a plain block. */
+      style={{ display: undefined }}
       className={cn(
         GLASS_SURFACE,
         "rounded-xl border border-border/50 bg-surface/85 shadow-1 print-break",

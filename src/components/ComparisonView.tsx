@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import {
   Bar,
   BarChart,
@@ -16,10 +15,17 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { GitCompareArrows, X } from "lucide-react";
+import { GitCompareArrows } from "lucide-react";
 import type { CropRecommendation } from "@/lib/types";
 import { formatRupees } from "@/lib/constants";
 import { SectionCard, SectionTitle, Badge } from "./ui";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 
 const COLORS = ["#7ba069", "#d98a63", "#a3b573"];
 
@@ -56,62 +62,39 @@ export function ComparisonView({
   });
 
   return (
-    <AnimatePresence>
-      {open ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/30 p-4 backdrop-blur-sm sm:p-8"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ y: 24, scale: 0.98 }}
-            animate={{ y: 0, scale: 1 }}
-            exit={{ y: 24, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-5xl rounded-xl bg-canvas p-6 shadow-3"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Comparative crop analysis"
-          >
-            <div className="mb-5 flex items-start justify-between gap-3">
-              {/* Single hierarchy: display heading → muted subhead (icon inline). */}
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-moss" aria-hidden>
-                    <GitCompareArrows className="h-5 w-5" />
-                  </span>
-                  <h2 className="font-display text-lg font-bold tracking-tight text-ink">
-                    Comparative Analysis
-                  </h2>
-                </div>
-                <p className="mt-1 text-sm text-ink-muted">
-                  All recommended crops side by side — financials and
-                  suitability.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center rounded-sm border border-border/50 text-ink-muted transition-all hover:border-border hover:bg-surface hover:text-ink"
-                aria-label="Close comparison"
-              >
-                <X className="h-4 w-4" aria-hidden />
-              </button>
-            </div>
+    <Dialog
+      open={open}
+      onOpenChange={(o) => {
+        if (!o) onClose();
+      }}
+    >
+      <DialogContent
+        className="sm:max-w-5xl"
+        overlayClassName="bg-ink/30 backdrop-blur-sm"
+      >
+        <DialogHeader className="gap-1 pr-10 text-left">
+          {/* Single hierarchy: display heading → muted subhead (icon inline). */}
+          <DialogTitle className="flex items-center gap-2 font-display text-lg font-bold tracking-tight text-ink">
+            <span className="text-moss" aria-hidden>
+              <GitCompareArrows className="h-5 w-5" />
+            </span>
+            Comparative Analysis
+          </DialogTitle>
+          <DialogDescription className="text-sm text-ink-muted">
+            All recommended crops side by side — financials and suitability.
+          </DialogDescription>
+        </DialogHeader>
 
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              {crops.map((c, i) => (
-                <Badge key={c.id} tone={i === 0 ? "moss" : i === 1 ? "harvest" : "sage"}>
-                  <span className="inline-block h-2 w-2 rounded-full" style={{ background: COLORS[i] }} />
-                  {c.crop}
-                </Badge>
-              ))}
-            </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {crops.map((c, i) => (
+            <Badge key={c.id} tone={i === 0 ? "moss" : i === 1 ? "harvest" : "sage"}>
+              <span className="inline-block h-2 w-2 rounded-full" style={{ background: COLORS[i] }} />
+              {c.crop}
+            </Badge>
+          ))}
+        </div>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <SectionCard className="p-5">
                 <SectionTitle
                   title="Financial ROI (per acre)"
@@ -199,9 +182,7 @@ export function ComparisonView({
                 </div>
               </SectionCard>
             </div>
-          </motion.div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
+        </DialogContent>
+      </Dialog>
   );
 }

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+/* animate-in/out utilities for Radix Dialog/Toaster data-state animations */
+@import "tw-animate-css";
+
+/* App is always-dark: bind the `dark:` variant to the html.dark class so
+   ObsidianUI primitives render deterministically regardless of OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   /* Native controls (checkboxes, inputs, scrollbars) render dark */

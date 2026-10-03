@@ -21,6 +21,7 @@ import { ComparisonView } from "./ComparisonView";
 import { ExportButton } from "./ExportButton";
 import { PrintSummary } from "./PrintSummary";
 import { FadeIn, SectionCard, Skeleton } from "./ui";
+import { Tabs, TabsContent } from "./ui/tabs";
 
 export function Dashboard() {
   const {
@@ -157,24 +158,29 @@ export function Dashboard() {
                   </div>
                 </div>
               ) : activeCrop ? (
-                <>
-                  <CropSwitcher
-                    crops={crops}
-                    activeTier={activeCrop.tier}
-                    onChange={setActiveTier}
-                  />
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeCrop.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
-                      <CropDetails crop={activeCrop} activeTier={activeCrop.tier} />
-                    </motion.div>
-                  </AnimatePresence>
-                </>
+                /* Tabs root: CropSwitcher renders the tab list, CropDetails is
+                   the tab panel. Value tracks activeCrop so a stale tier after
+                   a recompute still maps to a real trigger. */
+                <Tabs
+                  value={activeCrop.tier}
+                  onValueChange={(v) => setActiveTier(v as CropTier)}
+                  className="gap-6"
+                >
+                  <CropSwitcher crops={crops} activeTier={activeCrop.tier} />
+                  <TabsContent value={activeCrop.tier} className="mt-0">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeCrop.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      >
+                        <CropDetails crop={activeCrop} activeTier={activeCrop.tier} />
+                      </motion.div>
+                    </AnimatePresence>
+                  </TabsContent>
+                </Tabs>
               ) : null}
             </div>
           </SectionCard>

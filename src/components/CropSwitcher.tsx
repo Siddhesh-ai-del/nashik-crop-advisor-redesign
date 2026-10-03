@@ -5,6 +5,7 @@ import { Award, Leaf, ShieldCheck } from "lucide-react";
 import type { ComponentType } from "react";
 import type { CropRecommendation, CropTier } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { TabsList, TabsTrigger } from "./ui/tabs";
 
 const TIER_META: Record<
   CropTier,
@@ -15,37 +16,44 @@ const TIER_META: Record<
   alternative: { label: "Alternative", icon: ShieldCheck },
 };
 
+/**
+ * Tab list for switching the active crop tier. Renders inside the Radix
+ * `Tabs` root hosted by Dashboard (which owns value/onValueChange), so we
+ * get real tab semantics: arrow-key roving focus, aria-selected and
+ * automatic activation. `activeTier` only drives the clay indicator /
+ * icon color — selection state itself lives in Tabs.
+ */
 export function CropSwitcher({
   crops,
   activeTier,
-  onChange,
 }: {
   crops: CropRecommendation[];
   activeTier: CropTier;
-  onChange: (tier: CropTier) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-2.5" role="tablist" aria-label="Crop options">
+    <TabsList className="flex h-auto w-full flex-wrap gap-2.5 bg-transparent p-0">
       {crops.map((crop) => {
         const meta = TIER_META[crop.tier];
         const Icon = meta.icon;
         const active = crop.tier === activeTier;
         return (
-          <button
+          <TabsTrigger
             key={crop.id}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            onClick={() => onChange(crop.tier)}
+            value={crop.tier}
             className={cn(
-              "relative flex min-w-0 items-center gap-2.5 rounded-lg border px-4 py-3 text-left transition-all duration-300",
+              "relative h-auto min-w-0 flex-none justify-start gap-2.5 whitespace-normal rounded-lg border px-4 py-3 text-left text-sm transition-all duration-300",
               active
                 ? "border-moss/40 bg-moss text-canvas shadow-2"
                 : "border-border/40 bg-surface/60 text-ink-secondary hover:border-moss/20 hover:bg-moss-light/30",
+              "data-[state=active]:border-moss/40 data-[state=active]:bg-moss data-[state=active]:text-canvas",
+              "dark:data-[state=active]:border-moss/40 dark:data-[state=active]:bg-moss dark:data-[state=active]:text-canvas",
             )}
           >
             <Icon
-              className={cn("h-4 w-4 shrink-0", active ? "text-canvas/90" : "text-moss")}
+              className={cn(
+                "h-4 w-4 shrink-0",
+                active ? "text-canvas/90" : "text-moss",
+              )}
               aria-hidden
             />
             <span className="min-w-0">
@@ -68,9 +76,9 @@ export function CropSwitcher({
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             ) : null}
-          </button>
+          </TabsTrigger>
         );
       })}
-    </div>
+    </TabsList>
   );
 }

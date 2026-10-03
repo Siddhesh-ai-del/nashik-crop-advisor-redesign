@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
+      className={`${sourceSerif.variable} ${inter.variable} dark h-full antialiased`}
     >
       <body className="min-h-full">
         <Providers>{children}</Providers>

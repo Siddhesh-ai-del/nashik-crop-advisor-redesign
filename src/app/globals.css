@@ -262,11 +262,16 @@ body {
      styles the lens mounts at runtime. The element keeps its box and
      content; only the material is dropped, so cards print as solid
      panels and PrintSummary stays opaque. AmbientBackdrop is
-     `print:hidden` at the source; this is the second line of defence. */
+     `print:hidden` at the source; this is the second line of defence.
+
+     Only the UNPREFIXED `backdrop-filter` may be declared: when the
+     hand-written `-webkit-` twin sits next to it, the bundler's prefix
+     pass collapses the pair to the prefixed form alone — and current
+     Chromium dropped the `-webkit-backdrop-filter` alias, so the
+     declaration would be parsed out of existence (verified via CSSOM). */
   .glass-surface {
     filter: none !important;
     backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
 
   .print-hide {

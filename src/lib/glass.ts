@@ -10,12 +10,11 @@ import type { GlassOptics } from "@samasante/liquid-glass";
  * material stays consistent and the per-surface cost stays auditable.
  *
  * The look is REAL liquid glass, not glassmorphism: the body is near-CLEAR
- * (tint lives in each primitive's low-alpha `bg-*` class, frost is light,
- * the white `brightness` veil is a whisper) and the lens itself does the
- * talking — the rim meniscus (`bend`), chromatic split (`dispersion`) and
- * specular glow are pushed up so the edges bend and light up while the
- * centre stays a flat, undistorted window. On the light paper theme the
- * white veil and glow read as daylight caught in the material.
+ * (tint lives in each primitive's low-alpha `bg-*` class) and the lens
+ * itself does the talking — the rim meniscus (`bend`) and the edge light
+ * (`sheen`/`specular`/`glow`) are pushed up so the edges bend and light
+ * up while the centre stays a flat, undistorted window. On the light
+ * paper theme the glow reads as daylight caught in the material.
  *
  * `chrome` — soft 7px frost so content scrolling underneath mutes into a
  * backdrop, stronger rim bend and specular, full 512px map (six chrome
@@ -57,48 +56,63 @@ export const GLASS_CHROME: GlassOptics = {
 };
 
 /**
- * Phase 7.6 — the HEADER lens, maxed for the top bar (user verdict on the
- * chrome preset: "transparent, like glassmorphism — I want real liquid
- * glass there"). The chrome preset was tuned for small pills: near-clear
- * body, subtle rim. The bar wants the opposite — a thick pane you can
- * SEE refracting: depth 0.55→0.9 and curvature 0.4→0.7 so the backdrop
- * visibly compresses toward the rim, strength 0.055→0.14 so displacement
- * actually moves pixels, bend 0.5→0.9 with a wider bendWidth so the
- * meniscus rolls hard at the edge, and dispersion 0.35→0.7 for real
- * chromatic fringing. Frost/saturate/brightness tick up so the material
- * has body instead of reading as a tinted strip.
+ * Phase 7.6 — the HEADER lens. The numbers are the user's own config
+ * copied off the official demo (glass.samasante.com, "basic/pre
+ * config") after their verdict on the chrome preset ("transparent, like
+ * glassmorphism — I want real liquid glass there"): they want the top
+ * bar to look like THAT, verbatim.
  *
- * Perf: this surface is exempt from the cost problem, not subject to it —
- * at rest nothing invalidates the filter (metal parked, sparks parked),
- * and `.is-scrolling` swaps the whole `url()` pass for a plain blur while
- * the page moves (see globals.css). So the expensive lens only ever runs
- * on a still page. The header ALSO needs backdrop structure to bend:
- * AmbientBackdrop's top-edge echo band exists for exactly this — over
- * flat cream a perfect lens still looks like nothing.
+ *   refraction  strength 0.14 · depth 0.95 · curvature 0.2
+ *   edge        bend 1.4 · bendWidth 0.07
+ *   sheen       intensity 1.2 · thickness 3.5 · specular 1.6
+ *   background  glow 0.1 · frost 1 · brightness 0
+ *
+ * Fields they didn't list take the demo bundle's matching preset
+ * (its `assets/index-*.js`): dispersion 0.2, splay 0, sheenAngle 0,
+ * sheenFalloff 1.7, glowFalloff 0.6, glowSpread 1, clipToShape/softEdge
+ * true. `saturate` is pinned to the material-mode default (1.15) the
+ * demo inherits when its preset omits the field.
+ *
+ * Two deliberate deviations: `mapSize` 512→1024 (mount-only cost,
+ * crisper rim on a 1440px bar), and `bend: 1.4` applied verbatim even
+ * though the README documents 0–1 — the lib never clamps it (it scales
+ * the rim lip linearly: `a = 0.5 * bend * m * edgeOpacity / len`), and
+ * a render check confirmed it draws cleanly rather than tearing.
+ *
+ * The result is a near-CRYSTAL pane (frost 1, brightness 0): a clear
+ * window with a hard, bright, tight edge — not a frosted wash. It needs
+ * backdrop structure to bend: AmbientBackdrop's top-edge echo band
+ * exists for exactly this — over flat cream a perfect lens still looks
+ * like nothing. `bg-canvas/30` on GlassBar is the only tint left.
+ *
+ * Perf: unchanged from 7.5 — at rest nothing invalidates the filter
+ * (metal parked, sparks parked) and `.is-scrolling` swaps the whole
+ * `url()` pass for a plain blur while the page moves (globals.css), so
+ * the expensive lens only ever runs on a still page.
  */
 export const GLASS_HEADER: GlassOptics = {
   mapSize: 1024,
-  depth: 0.9,
-  curvature: 0.75,
-  dispersion: 0.8,
-  strength: 0.18,
+  depth: 0.95,
+  curvature: 0.2,
+  dispersion: 0.2,
+  strength: 0.14,
   clipToShape: true,
   softEdge: true,
-  frost: 8,
-  saturate: 1.35,
-  brightness: 0.05,
-  specular: 1,
-  sheenAngle: 45,
+  frost: 1,
+  saturate: 1.15,
+  brightness: 0,
+  specular: 1.6,
+  sheenAngle: 0,
   sheenDark: false,
-  glow: 0.2,
+  glow: 0.1,
   glowSpread: 1,
-  glowFalloff: 0.5,
-  sheen: 0.4,
-  sheenWidth: 3,
-  sheenFalloff: 1.5,
+  glowFalloff: 0.6,
+  sheen: 1.2,
+  sheenWidth: 3.5,
+  sheenFalloff: 1.7,
   splay: 0,
-  bend: 0.9,
-  bendWidth: 0.22,
+  bend: 1.4,
+  bendWidth: 0.07,
 };
 
 /** Marker class every glass wrapper carries: `@media print` suppression and

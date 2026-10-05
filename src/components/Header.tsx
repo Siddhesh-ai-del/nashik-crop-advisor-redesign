@@ -111,6 +111,10 @@ export function Header({
               </div>
             </div>
 
+            {/* Labels use `ink-secondary` (not muted): since 7.6 the header
+                glass is near-crystal (frost 1), so these cards composite the
+                top band nearly unblurred — muted ink measured 3.63:1 there
+                (AA fail), secondary clears 4.5:1. */}
             <div className="grid grid-cols-3 gap-1.5">
               <div className="rounded-md border border-border/50 bg-surface/60 px-3 py-2 text-center">
                 <ThermometerSun
@@ -122,7 +126,7 @@ export function Header({
                     ? `${Math.round(weather.current.temperature)}°`
                     : "—"}
                 </p>
-                <p className="text-[10px] uppercase tracking-wider text-ink-muted">
+                <p className="text-[10px] uppercase tracking-wider text-ink-secondary">
                   Now
                 </p>
               </div>
@@ -134,7 +138,7 @@ export function Header({
                 <p className="text-sm font-bold text-ink">
                   {weather ? `${Math.round(weather.current.humidity)}%` : "—"}
                 </p>
-                <p className="text-[10px] uppercase tracking-wider text-ink-muted">
+                <p className="text-[10px] uppercase tracking-wider text-ink-secondary">
                   Humidity
                 </p>
               </div>
@@ -146,7 +150,7 @@ export function Header({
                 <p className="text-sm font-bold text-ink">
                   {weather ? `${Math.round(weather.current.windSpeed)}` : "—"}
                 </p>
-                <p className="text-[10px] uppercase tracking-wider text-ink-muted">
+                <p className="text-[10px] uppercase tracking-wider text-ink-secondary">
                   km/h
                 </p>
               </div>

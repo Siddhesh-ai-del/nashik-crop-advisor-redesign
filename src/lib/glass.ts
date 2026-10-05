@@ -77,10 +77,12 @@ export const GLASS_CHROME: GlassOptics = {
  * during scroll: `mapSize` stays at the demo's 512 (my earlier 1024
  * experiment cost +64ms/frame — the map primitive dominates the pass),
  * `dispersion` went to 0 (RGB-split passes: −17ms software / −4ms GPU
- * per frame, and the fringe was near-invisible anyway), and `bend` was
- * softened from the user's pasted 1.4 (outside the documented 0–1 range)
- * to 0.9 — a strong, in-range lip that reads "liquid but normal". The
- * magnified middle the user wants comes from depth 0.95 + curvature 0.2.
+ * per frame, and the fringe was near-invisible anyway), and `bend` went
+ * through a live 3-step user review — the pasted 1.4 (outside the
+ * documented 0–1 range) read as "bends too much" at 0.9, still too much
+ * at 0.45, and **0.25 was approved and locked at round 2**: a gentle rim
+ * lip over an otherwise still-refracting pane. The magnified middle the
+ * user wants comes from depth 0.95 + curvature 0.2.
  *
  * The result is a near-CRYSTAL pane (frost 1, brightness 0): a clear
  * window with a hard, bright, tight edge — not a frosted wash. It needs
@@ -119,7 +121,7 @@ export const GLASS_HEADER: GlassOptics = {
   sheenWidth: 3.5,
   sheenFalloff: 1.7,
   splay: 0,
-  bend: 0.9,
+  bend: 0.25,
   bendWidth: 0.07,
 };
 

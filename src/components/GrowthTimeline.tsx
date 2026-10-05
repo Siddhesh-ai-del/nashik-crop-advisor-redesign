@@ -2,15 +2,11 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  CalendarCheck,
-  Check,
-  ChevronDown,
-  Lightbulb,
-} from "lucide-react";
+import { CalendarCheck, Check, ChevronDown, Lightbulb } from "lucide-react";
 import type { TimelineCategory } from "@/lib/types";
 import type { CropRecommendation } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { DURATION, EASE_STANDARD } from "@/lib/motion";
 import { SectionCard, SectionTitle, Badge } from "./ui";
 
 const CATEGORY_META: Record<
@@ -43,8 +39,11 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
         {crop.growthTimeline.map((stage, index) => {
           const meta = CATEGORY_META[stage.category];
           const open = openId === stage.id;
-          const doneCount = stage.tasks.filter((t) => checked[`${stage.id}:${t}`]).length;
-          const allDone = stage.tasks.length > 0 && doneCount === stage.tasks.length;
+          const doneCount = stage.tasks.filter(
+            (t) => checked[`${stage.id}:${t}`],
+          ).length;
+          const allDone =
+            stage.tasks.length > 0 && doneCount === stage.tasks.length;
 
           return (
             <div
@@ -91,7 +90,7 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                 </div>
                 <motion.div
                   animate={{ rotate: open ? 180 : 0 }}
-                  transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ duration: DURATION.fast, ease: EASE_STANDARD }}
                   className="shrink-0 text-ink-muted"
                 >
                   <ChevronDown className="h-4 w-4" aria-hidden />
@@ -105,7 +104,10 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{
+                      duration: DURATION.base,
+                      ease: EASE_STANDARD,
+                    }}
                     className="overflow-hidden"
                   >
                     <div className="border-t border-border/25 px-5 pb-5 pt-4">
@@ -145,7 +147,10 @@ export function GrowthTimeline({ crop }: { crop: CropRecommendation }) {
                       </ul>
 
                       <div className="mt-4 flex items-start gap-2.5 rounded-md border border-harvest-200/40 bg-harvest-50/50 px-4 py-3">
-                        <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-harvest-600" aria-hidden />
+                        <Lightbulb
+                          className="mt-0.5 h-4 w-4 shrink-0 text-harvest-600"
+                          aria-hidden
+                        />
                         <p className="text-xs leading-relaxed text-ink">
                           <span className="font-semibold text-harvest-700">
                             Agronomist tip:{" "}

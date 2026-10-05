@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/cn";
+import { DURATION, EASE_STANDARD } from "@/lib/motion";
 import { Progress } from "./ui/progress";
 import { Spinner } from "./ui/spinner";
 
@@ -67,10 +68,14 @@ export function RecommendationLoader() {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: DURATION.fast, ease: EASE_STANDARD }}
               >
-                <p className="text-sm font-semibold text-ink">{current.label}</p>
-                <p className="mt-0.5 text-xs text-ink-muted">{current.detail}</p>
+                <p className="text-sm font-semibold text-ink">
+                  {current.label}
+                </p>
+                <p className="mt-0.5 text-xs text-ink-muted">
+                  {current.detail}
+                </p>
               </motion.div>
             </AnimatePresence>
           </div>

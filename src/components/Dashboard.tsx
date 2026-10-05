@@ -6,6 +6,7 @@ import { AlertCircle, FlaskConical, Sparkles, Trophy } from "lucide-react";
 import { useRecommendation } from "@/hooks/useRecommendation";
 import type { CropTier } from "@/lib/types";
 import { REGIONS } from "@/lib/constants";
+import { DURATION, EASE_STANDARD } from "@/lib/motion";
 import { Header } from "./Header";
 import { PresetButtons } from "./PresetButtons";
 import { ParameterPanel } from "./ParameterPanel";
@@ -201,8 +202,8 @@ export function Dashboard() {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{
-                            duration: 0.3,
-                            ease: [0.25, 0.46, 0.45, 0.94],
+                            duration: DURATION.base,
+                            ease: EASE_STANDARD,
                           }}
                         >
                           <CropDetails

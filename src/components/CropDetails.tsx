@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Lightbulb, MessageSquareText, Target } from "lucide-react";
 import type { CropRecommendation, CropTier } from "@/lib/types";
+import { DURATION, EASE_STANDARD } from "@/lib/motion";
 import { Badge } from "./ui";
 import { FlipText } from "./block/flip-text";
 import { MetricPills } from "./MetricPills";
@@ -32,7 +33,7 @@ export function CropDetails({
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ duration: DURATION.slow, ease: EASE_STANDARD }}
         className="space-y-6"
       >
         <div className="rounded-lg border border-border/40 bg-surface/70 p-6 shadow-1 print-break">

@@ -35,6 +35,15 @@
   --stone: #8a8078;
   --olive: #a3b573;
   --olive-light: #1e2218;
+
+  /* Motion scale (plan 6.1) — CSS twin of the numeric tokens exported by
+     src/lib/motion.ts for framer sites; keep the values in sync */
+  --ease-standard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.35, 1);
+  --duration-fast: 0.25s;
+  --duration-base: 0.3s;
+  --duration-slow: 0.35s;
+  --duration-emphasis: 0.5s;
 }
 
 @theme inline {
@@ -255,9 +264,8 @@ body {
    staggers --flip-delay per char on a sine curve, which turns isolated
    spins into a wave across the word. */
 .flip-char {
-  animation: flip-char-spin var(--flip-duration, 2.2s)
-    cubic-bezier(0.6, 0, 0.35, 1) var(--flip-delay, 0s)
-    var(--flip-iteration, infinite);
+  animation: flip-char-spin var(--flip-duration, 2.2s) var(--ease-in-out)
+    var(--flip-delay, 0s) var(--flip-iteration, infinite);
   backface-visibility: hidden;
 }
 

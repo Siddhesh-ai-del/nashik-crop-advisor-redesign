@@ -72,7 +72,7 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 
 ## Phase 6 — Motion, QA, verification
 
-- [ ] **6.1** Unified easing/duration tokens; retire ad-hoc `ease: [0.25,0.46,0.45,0.94]` literals.
+- [x] **6.1** Unified easing/duration tokens; retire ad-hoc `ease: [0.25,0.46,0.45,0.94]` literals. _(`src/lib/motion.ts` exports `EASE_STANDARD` + `DURATION` fast/base/slow/emphasis (0.25/0.3/0.35/0.5s); CSS twins `--ease-standard`, `--ease-in-out`, `--duration-*` live in globals `:root`. All 6 framer sites (ui, CropDetails, RecommendationLoader, GrowthTimeline ×2, Dashboard) + the flip-text keyframe now reference tokens. Gotcha: motion vars belong in `:root`, NOT the `@theme inline` block — Tailwind tree-shakes non-namespace vars there (3 of 6 silently vanished from the compiled CSS), and `--ease-in-out` inside `@theme` would hijack the `ease-in-out` utility's value. Verified: all 6 vars resolve at runtime, flip char's animation-timing-function computes to `cubic-bezier(0.6, 0, 0.35, 1)`, 0 console errors. GSAP named eases, lenis scroll duration and toast durations deliberately out of scope.)_
 - [ ] **6.2** **Contrast audit** — glass over dark with light text is a WCAG AA risk; check every badge/ink-muted token.
 - [ ] **6.3** **Performance pass** — count SVG filters above the fold, `filterResolution`, IntersectionObserver-mount to avoid painting offscreen glass.
 - [ ] **6.4** Verify: `npx tsc --noEmit`, `npm run lint`, `npm run build`, clean console, 1440/768/390 screenshots vs. baseline, print PDF.

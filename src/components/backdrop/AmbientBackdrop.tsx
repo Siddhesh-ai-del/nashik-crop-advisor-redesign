@@ -1,50 +1,67 @@
 /**
  * AmbientBackdrop — the load-bearing layer under every glass surface (plan 4.2).
  *
- * Liquid glass refracts what's behind it; on a flat dark fill it looks like
- * plain blur. This fixed gradient mesh gives the lenses colour + luminance to
- * bend: moss pooling top-left, harvest mid-right, clay bottom, plus faint
- * "furrow" bands so rim refraction has linear structure to warp.
+ * Plan 5.7: the original gradient-mesh / furrow / vignette layers were replaced
+ * with OpenSourceUI's "Dark Aurora Background" — four soft teal/cyan/emerald/
+ * sky blooms + a dot-grid over charcoal — so the liquid-glass lenses refract
+ * moving colour instead of a flat mesh. Layer markup is copied verbatim from:
  *
- * Deliberately NON-animated (one static paint, zero runtime cost).
- * `print:hidden` keeps the printed summary on solid white.
+ *   https://opensourceui.in/components/dark-aurora-background
+ *   https://github.com/bidyut10/opensourceui
+ *
+ * --- MIT License -----------------------------------------------------------
+ * Copyright (c) 2026 Bidyut Kundu
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * -------------------------------------------------------------------------
+ *
+ * Integration deltas vs the upstream component (which wraps `children`):
+ * - wrapper here is the plan 4.2 fixed viewport cover, keeping `-z-10`,
+ *   `pointer-events-none`, `aria-hidden` and the plan 4.6 `print:hidden` guard;
+ *   it adopts upstream's `bg-[#0A0C0F]` + `overflow-hidden` semantics.
+ * - inner layers are untouched: static (one paint, zero runtime cost), so no
+ *   reduced-motion handling is needed.
  */
 export function AmbientBackdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 print:hidden"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#0A0C0F] print:hidden"
     >
-      {/* Base canvas + soft radial colour pools */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundColor: "var(--canvas)",
-          backgroundImage: [
-            "radial-gradient(52rem 38rem at 12% -6%, rgb(123 160 105 / 0.16), transparent 62%)",
-            "radial-gradient(46rem 34rem at 96% 18%, rgb(150 114 44 / 0.13), transparent 60%)",
-            "radial-gradient(40rem 30rem at 78% 96%, rgb(217 138 99 / 0.10), transparent 58%)",
-            "radial-gradient(34rem 26rem at 34% 74%, rgb(123 160 105 / 0.08), transparent 55%)",
-            "linear-gradient(180deg, rgb(28 31 34 / 0.55), transparent 32%)",
-          ].join(", "),
-        }}
-      />
-      {/* Faint field furrows — give the refraction linear structure to bend */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(180deg, rgb(232 230 225 / 0.02) 0 1px, transparent 1px 8px)",
-        }}
-      />
-      {/* Vignette keeps the edges calm so cards read against quiet glass */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(10 11 12 / 0.55) 100%)",
-        }}
-      />
+      {/* Base vertical gradient */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#12151A_0%,#0A0C0F_55%,#06080A_100%)]" />
+
+      {/* Aurora blooms — teal, cyan, emerald, sky */}
+      <div className="pointer-events-none absolute -inset-6 -z-10 blur-xl">
+        <div className="absolute inset-0 bg-[#0A0C0F]" />
+
+        <div className="absolute -top-[18%] -left-[12%] h-[68%] w-[68%] rounded-full bg-[#2DD4BF] opacity-22 blur-3xl" />
+
+        <div className="absolute top-[8%] -right-[10%] h-[62%] w-[62%] rounded-full bg-[#22D3EE] opacity-18 blur-3xl" />
+
+        <div className="absolute bottom-[-28%] left-[18%] h-[70%] w-[70%] rounded-full bg-[#34D399] opacity-16 blur-3xl" />
+
+        <div className="absolute right-[8%] bottom-[-16%] h-[56%] w-[56%] rounded-full bg-[#38BDF8] opacity-14 blur-3xl" />
+      </div>
+
+      {/* Dot-grid texture */}
+      <div className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(circle_at_center,#FFFFFF_1px,transparent_1px)] [background-size:4px_4px] opacity-[0.04]" />
     </div>
   );
 }

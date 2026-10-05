@@ -18,56 +18,56 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 
 ---
 
-## Phase 0 — Safety net + bug fixes *(no styling yet)*
+## Phase 0 — Safety net + bug fixes _(no styling yet)_
 
-- [x] **0.1 Baseline capture.** Screenshots at 1440/768/390 + print PDF → `.playwright-mcp/baseline/`. *(f4bf126)*
-- [x] **0.2 Fix hydration mismatch.** `Dashboard.tsx` `new Date()` as `generatedAt` → stable `""` default, timestamp rendered client-side only. *(8c96ede)*
-- [x] **0.3 Fix WeatherWidget overlap.** `grid-cols-[auto_1fr]` squeezed metrics → second row / `minmax(0,auto)`. *(ced97b8)*
-- [x] **0.4 Fix `Compare all (0)` during load.** Hide until `crops.length > 0`. *(7c7c06b)*
+- [x] **0.1 Baseline capture.** Screenshots at 1440/768/390 + print PDF → `.playwright-mcp/baseline/`. _(f4bf126)_
+- [x] **0.2 Fix hydration mismatch.** `Dashboard.tsx` `new Date()` as `generatedAt` → stable `""` default, timestamp rendered client-side only. _(8c96ede)_
+- [x] **0.3 Fix WeatherWidget overlap.** `grid-cols-[auto_1fr]` squeezed metrics → second row / `minmax(0,auto)`. _(ced97b8)_
+- [x] **0.4 Fix `Compare all (0)` during load.** Hide until `crops.length > 0`. _(7c7c06b)_
 
 ## Phase 1 — Design token foundation
 
-- [x] **1.1 Radius scale.** 50 literals (10/12/13/14/16/18/20px) → `--radius-sm/md/lg/xl` (8/12/16/24). *(0a56cfb)*
-- [x] **1.2 Elevation ladder.** 14 bespoke `shadow-[rgba(61,43,31,…)]` → `--shadow-1/2/3` (+glow), retuned dark. *(0a56cfb)*
-- [x] **1.3 Type scale.** `display/h1/h2/h3/body/caption` + display face (Source Serif 4) for headings. *(25f7f34)*
-- [x] **1.4 Dark theme tokens.** `:root` charcoal ramp `#0a0b0c → #141618 → #1c1f22`, accents retuned, chart hexes remapped, `themeColor`. *(cc86b55)*
-- [x] **1.5 Upgrade `cn`.** naive join → clsx + tailwind-merge with custom-token groups. *(44cd091)*
+- [x] **1.1 Radius scale.** 50 literals (10/12/13/14/16/18/20px) → `--radius-sm/md/lg/xl` (8/12/16/24). _(0a56cfb)_
+- [x] **1.2 Elevation ladder.** 14 bespoke `shadow-[rgba(61,43,31,…)]` → `--shadow-1/2/3` (+glow), retuned dark. _(0a56cfb)_
+- [x] **1.3 Type scale.** `display/h1/h2/h3/body/caption` + display face (Source Serif 4) for headings. _(25f7f34)_
+- [x] **1.4 Dark theme tokens.** `:root` charcoal ramp `#0a0b0c → #141618 → #1c1f22`, accents retuned, chart hexes remapped, `themeColor`. _(cc86b55)_
+- [x] **1.5 Upgrade `cn`.** naive join → clsx + tailwind-merge with custom-token groups. _(44cd091)_
 
 ## Phase 2 — ObsidianUI primitives
 
 - [ ] **2.1 Aliases.** Create `components.json` + `tsconfig.json` paths `@ui/*`, `@components/*`, `@lib/*`, `@hooks/*` → `src/*`.
 - [~] **2.2 Install primitives.** Needed: `toggle-group`, `tabs`, `dialog`, `tooltip`, `progress`, `spinner`, `skeleton`, `badge`, `separator`, `scroll-area`.
-  *(Done so far: alert, badge, button, card, checkbox, collapsible, dialog, empty, input, item, label, progress, separator, skeleton, spinner, switch, table, tabs, tooltip — 9a8627e; missing: toggle-group, scroll-area)*
+  _(Done so far: alert, badge, button, card, checkbox, collapsible, dialog, empty, input, item, label, progress, separator, skeleton, spinner, switch, table, tabs, tooltip — 9a8627e; missing: toggle-group, scroll-area)_
 - [ ] **2.3 Wire providers.** Mount `<TooltipProvider>`, `<Sonner Toaster>` roots in `layout.tsx`.
 
 ## Phase 3 — Layout & hierarchy surgery
 
-- [~] **3.1 Rebalance two-column grid.** ~450px dead whitespace under weather card. *(6d1dd65 — weather card stretches to column height; original idea was full-width hero band)*
-- [ ] **3.2 Kill the repeated "tinted square + icon + title + subtitle" pattern** (4×) → display heading → muted subhead → content. *(Files: `Header.tsx`, `ui.tsx`, `ParameterPanel.tsx`, `Dashboard.tsx`)*
-- [ ] **3.3 Replace `OptionGrid` with `toggle-group`** for Region / Season / Soil / Water — real `aria-pressed`, focus rings, keyboard nav. Must preserve `layoutId` selected-dot motion. *(`ParameterPanel.tsx`)*
-- [ ] **3.4 Replace `CropSwitcher` with `tabs`**; `ComparisonView` hand-rolled overlay → `dialog`/`drawer`. *(`CropSwitcher.tsx`, `ComparisonView.tsx`)*
-- [ ] **3.5 Recommendation loading state.** 14.8s Gemini call → staged/animated loader (`loaders-gooey-blobs` or `spinner`) with progress copy. *(`Dashboard.tsx`, `ui.tsx`)*
-- [ ] **3.6 Restyle charts.** Retheme axes/grid/labels for dark *(done in 1.4)*, add `tooltip` on data points, replace profit-margin bar with `progress`. *(4 chart files)*
+- [~] **3.1 Rebalance two-column grid.** ~450px dead whitespace under weather card. _(6d1dd65 — weather card stretches to column height; original idea was full-width hero band)_
+- [ ] **3.2 Kill the repeated "tinted square + icon + title + subtitle" pattern** (4×) → display heading → muted subhead → content. _(Files: `Header.tsx`, `ui.tsx`, `ParameterPanel.tsx`, `Dashboard.tsx`)_
+- [ ] **3.3 Replace `OptionGrid` with `toggle-group`** for Region / Season / Soil / Water — real `aria-pressed`, focus rings, keyboard nav. Must preserve `layoutId` selected-dot motion. _(`ParameterPanel.tsx`)_
+- [ ] **3.4 Replace `CropSwitcher` with `tabs`**; `ComparisonView` hand-rolled overlay → `dialog`/`drawer`. _(`CropSwitcher.tsx`, `ComparisonView.tsx`)_
+- [ ] **3.5 Recommendation loading state.** 14.8s Gemini call → staged/animated loader (`loaders-gooey-blobs` or `spinner`) with progress copy. _(`Dashboard.tsx`, `ui.tsx`)_
+- [ ] **3.6 Restyle charts.** Retheme axes/grid/labels for dark _(done in 1.4)_, add `tooltip` on data points, replace profit-margin bar with `progress`. _(4 chart files)_
 
-## Phase 4 — Liquid Glass *(the heavy pass)*
+## Phase 4 — Liquid Glass _(the heavy pass)_
 
 - [x] **4.1 Install.** `npm i @samasante/liquid-glass` (v0.1.1, peer react/react-dom ≥18 ✔).
 
-- [x] **4.2 Build the backdrop (load-bearing).** `src/components/backdrop/AmbientBackdrop.tsx` — non-animated gradient-mesh / subtle field-imagery layer fixed behind everything. **Glass refracts what's behind it; on a flat dark fill it looks like plain blur.** Mounted in `layout.tsx`. *(3 layers: colour pools + furrow bands + vignette; pixel-sampled visible; `print:hidden`)*
+- [x] **4.2 Build the backdrop (load-bearing).** `src/components/backdrop/AmbientBackdrop.tsx` — non-animated gradient-mesh / subtle field-imagery layer fixed behind everything. **Glass refracts what's behind it; on a flat dark fill it looks like plain blur.** Mounted in `layout.tsx`. _(3 layers: colour pools + furrow bands + vignette; pixel-sampled visible; `print:hidden`)_
 
-- [x] **4.3 Glass primitives.** `src/components/glass/`: `GlassPanel` (cards), `GlassBar` (sticky header/nav), `GlassChip` (presets/badges), `GlassModal`, plus `src/lib/glass.ts` with **2 locked `optics` presets** (`panel`, `chrome`). Include `prefers-reduced-motion` handling and `print:hidden` guard. *(`glass-surface` marker class keys both global guards in globals.css)*
-- [x] **4.4 Apply — chrome.** Sticky header, preset chip row, floating Compare/Export action bar, error banner, ComparisonView modal. *(`Header.tsx` GlassBar + `lg:sticky`; `PresetButtons.tsx` GlassChip shells w/ state on the chip; `Dashboard.tsx` GlassPanel error banner + GlassChip action pill; `ComparisonView.tsx` GlassModal — DialogContent hollowed to a transparent Radix shell. Material-mode gotcha fixed: `filterResolution` is part of the lib's `isMaterial` gate (setting it ejects to GlassDOM → no backdrop frost + content warp), and material's inline `display:inline-block` default is neutralized via `style={{ display: undefined }}` so caller `flex`/`grid` classes win.)*
-- [x] **4.5 Apply — cards (the "heavy" choice).** Convert `ui.tsx:SectionCard` → `GlassPanel` **in one place** so all 10+ cards update at once (CropDetails, Radar, Financial, Pest, Water, Timeline…). *(One delegation in `ui.tsx`; verified 14 material instances on the loaded dashboard, all with live `backdrop-filter`, WeatherWidget's `flex` display preserved via the `display:undefined` fix, idle frames 16.5ms avg / 17ms max @14 surfaces.)*
-- [x] **4.6 Print suppression.** Every glass surface excluded from `@media print` so `PrintSummary` stays solid. *(`globals.css` `.glass-surface` `!important` neutralizes the inline `filter`/`backdrop-filter`; `AmbientBackdrop` is `print:hidden`; all 4 primitives carry the marker class. Also re-flipped the full token ramp dark-on-white in `@media print` — the 1.4 dark flip had left `--ink: #e8e6e1` light text on the white print background. Output PDF verification deferred to 6.4.)*
+- [x] **4.3 Glass primitives.** `src/components/glass/`: `GlassPanel` (cards), `GlassBar` (sticky header/nav), `GlassChip` (presets/badges), `GlassModal`, plus `src/lib/glass.ts` with **2 locked `optics` presets** (`panel`, `chrome`). Include `prefers-reduced-motion` handling and `print:hidden` guard. _(`glass-surface` marker class keys both global guards in globals.css)_
+- [x] **4.4 Apply — chrome.** Sticky header, preset chip row, floating Compare/Export action bar, error banner, ComparisonView modal. _(`Header.tsx` GlassBar + `lg:sticky`; `PresetButtons.tsx` GlassChip shells w/ state on the chip; `Dashboard.tsx` GlassPanel error banner + GlassChip action pill; `ComparisonView.tsx` GlassModal — DialogContent hollowed to a transparent Radix shell. Material-mode gotcha fixed: `filterResolution` is part of the lib's `isMaterial` gate (setting it ejects to GlassDOM → no backdrop frost + content warp), and material's inline `display:inline-block` default is neutralized via `style={{ display: undefined }}` so caller `flex`/`grid` classes win.)_
+- [x] **4.5 Apply — cards (the "heavy" choice).** Convert `ui.tsx:SectionCard` → `GlassPanel` **in one place** so all 10+ cards update at once (CropDetails, Radar, Financial, Pest, Water, Timeline…). _(One delegation in `ui.tsx`; verified 14 material instances on the loaded dashboard, all with live `backdrop-filter`, WeatherWidget's `flex` display preserved via the `display:undefined` fix, idle frames 16.5ms avg / 17ms max @14 surfaces.)_
+- [x] **4.6 Print suppression.** Every glass surface excluded from `@media print` so `PrintSummary` stays solid. _(`globals.css` `.glass-surface` `!important` neutralizes the inline `filter`/`backdrop-filter`; `AmbientBackdrop` is `print:hidden`; all 4 primitives carry the marker class. Also re-flipped the full token ramp dark-on-white in `@media print` — the 1.4 dark flip had left `--ink: #e8e6e1` light text on the white print background. Output PDF verification deferred to 6.4.)_
 
 ## Phase 5 — ObsidianUI feature components
 
-- [x] **5.1** `interactive-hover-button` → Export/Print, Refresh, Compare actions. *(Registry block adapted: the `scale-[100.8]` moss disc is the signature fill — hover floods the pill moss, so the hover row must stay `text-primary-foreground` (7.7:1 on moss), not re-tinted. Disc restructured as an always-present layer so the icon variant (Refresh's spinning `RefreshCw`) keeps the fill and rides the resting row out with the label; explicit `focus-visible` ring + `motion-reduce:transition-none`.)*
-- [x] **5.2** `sonner` toasts → weather refresh, export, API errors (currently silent/inline). *(`useRecommendation.ts` toasts manual-refresh success (live/offline variants) + API errors with stable ids (dedupe, no stacking); `ExportButton` shows "Opening print dialog…" and defers `print()` one frame so the toast paints before the modal blocks the thread, dismissing it on return; toaster is `display:none` in `@media print`. Fixed the ObsidianUI wrapper's shadcn-compat vars — `--popover`/`--radius` don't exist in this theme, making sonner's `[data-styled=true]` background/border-radius invalid → transparent square; now maps to `--surface-elevated`/`--ink`/`--radius-lg`.)*
-- [x] **5.3** `flip-text` / `text-reel` → headline + crop-tier recommendation swap. *(`text-reel` isn't in the registry — flip-text only. Ships no companion CSS, so authored the keyframes: ink front face + moss `::before` back face (`attr(data-char)`, rotateX 180°), wave driven by the component's sine-staggered `--flip-delay`. Two registry adaptations: word gap moved out of the `&nbsp;` span (unbreakable phrases overflowed 390px) and delay rounded to 0.1ms (`Math.sin` ULP differed server→client → hydration mismatch). Applied one-shot (`loop=false`) to the brand h1 and the CropDetails crop headline (remounts via AnimatePresence per tier swap); `aria-label` preserves accessible names over per-char spans; print pins chars upright, reduced-motion disables.)*
-- [x] **5.4** `hover-img` (**needs `gsap`**) → crop card imagery. *Image assets sourced:* 23 Wikimedia Commons JPEGs in `public/crops/` (credits in `public/crops/CREDITS.md`); `src/lib/crop-images.ts` maps crop names → thumbnails (ordered specific-first keyword rules, generic `field` fallback for Gemini free-text). Block adapted to the token theme (drops registry's 100vh/light bg/`.dark`/Raleway), wrapper defaults to `scale(0)` (no SSR flash), reduced-motion collapses gsap tweens + CSS transitions, print-hidden + `aria-hidden` (rows duplicate the tabs). Wired as a compact photo index above the tab strip in the rec-card; `gsap@3.15.0`.
-- [x] **5.5** `liquid-metal` (**needs `@paper-design/shaders-react`**, WebGL) → logo/hero only, not the dashboard body. *Landed on the logo:* chip in `Header.tsx` — `LiquidMetal` shader (dark chrome `#191c13` + harvest-amber `#dfbd7e`, speed 0.35) as a bezel behind a `bg-surface/85` medallion disc holding the sprout (`text-moss-deep`; `moss-light` is near-black after the 1.4 flip and bright bands swallowed a naked glyph). `bg-surface`+ring = no-WebGL fallback; header already `print-hide`; shader parks under reduced motion (registry's `useReducedMotion`). Verified: canvas/WebGL live, frames differ over 400ms, 0 console errors.
-- [ ] **5.6** `smooth-scroll` (**needs `lenis`**) + `click-spark` (**needs `next-themes`**) → global page feel.
+- [x] **5.1** `interactive-hover-button` → Export/Print, Refresh, Compare actions. _(Registry block adapted: the `scale-[100.8]` moss disc is the signature fill — hover floods the pill moss, so the hover row must stay `text-primary-foreground` (7.7:1 on moss), not re-tinted. Disc restructured as an always-present layer so the icon variant (Refresh's spinning `RefreshCw`) keeps the fill and rides the resting row out with the label; explicit `focus-visible` ring + `motion-reduce:transition-none`.)_
+- [x] **5.2** `sonner` toasts → weather refresh, export, API errors (currently silent/inline). _(`useRecommendation.ts` toasts manual-refresh success (live/offline variants) + API errors with stable ids (dedupe, no stacking); `ExportButton` shows "Opening print dialog…" and defers `print()` one frame so the toast paints before the modal blocks the thread, dismissing it on return; toaster is `display:none` in `@media print`. Fixed the ObsidianUI wrapper's shadcn-compat vars — `--popover`/`--radius` don't exist in this theme, making sonner's `[data-styled=true]` background/border-radius invalid → transparent square; now maps to `--surface-elevated`/`--ink`/`--radius-lg`.)_
+- [x] **5.3** `flip-text` / `text-reel` → headline + crop-tier recommendation swap. _(`text-reel` isn't in the registry — flip-text only. Ships no companion CSS, so authored the keyframes: ink front face + moss `::before` back face (`attr(data-char)`, rotateX 180°), wave driven by the component's sine-staggered `--flip-delay`. Two registry adaptations: word gap moved out of the `&nbsp;` span (unbreakable phrases overflowed 390px) and delay rounded to 0.1ms (`Math.sin` ULP differed server→client → hydration mismatch). Applied one-shot (`loop=false`) to the brand h1 and the CropDetails crop headline (remounts via AnimatePresence per tier swap); `aria-label` preserves accessible names over per-char spans; print pins chars upright, reduced-motion disables.)_
+- [x] **5.4** `hover-img` (**needs `gsap`**) → crop card imagery. _Image assets sourced:_ 23 Wikimedia Commons JPEGs in `public/crops/` (credits in `public/crops/CREDITS.md`); `src/lib/crop-images.ts` maps crop names → thumbnails (ordered specific-first keyword rules, generic `field` fallback for Gemini free-text). Block adapted to the token theme (drops registry's 100vh/light bg/`.dark`/Raleway), wrapper defaults to `scale(0)` (no SSR flash), reduced-motion collapses gsap tweens + CSS transitions, print-hidden + `aria-hidden` (rows duplicate the tabs). Wired as a compact photo index above the tab strip in the rec-card; `gsap@3.15.0`.
+- [x] **5.5** `liquid-metal` (**needs `@paper-design/shaders-react`**, WebGL) → logo/hero only, not the dashboard body. _Landed on the logo:_ chip in `Header.tsx` — `LiquidMetal` shader (dark chrome `#191c13` + harvest-amber `#dfbd7e`, speed 0.35) as a bezel behind a `bg-surface/85` medallion disc holding the sprout (`text-moss-deep`; `moss-light` is near-black after the 1.4 flip and bright bands swallowed a naked glyph). `bg-surface`+ring = no-WebGL fallback; header already `print-hide`; shader parks under reduced motion (registry's `useReducedMotion`). Verified: canvas/WebGL live, frames differ over 400ms, 0 console errors.
+- [x] **5.6** `smooth-scroll` (**needs `lenis`**) + `click-spark` → global page feel. _(Blocks materialized registry-verbatim (lenis 1.3.26): Lenis drives wheel/touch with `lerp` while globals keeps `scroll-behavior: smooth` for anchor jumps — `setScroll` uses `behavior:"instant"` so the two never fight; `respectReducedMotion` parks the loop under reduce (wheel ramps 0→900, instant). `click-spark` gets an explicit `sparkColor="#d4b87a"` — no ThemeProvider mounts, so next-themes' default would fall back to invisible `#000`. motion@13's `useReducedMotion` reads `prefers-reduced-motion` once at mount with no change listener — replaced by `src/lib/use-reduced-motion.ts` (`useSyncExternalStore`, live), adopted by click-spark, smooth-scroll, liquid-metal + Header. Verified: eased ramp settles exactly, `lenis` class absent under reduce, spark canvas z-9999/pointer-events-none, 156-stroke burst expires to 0, 0 under reduce, 0 console errors.)_
 
 ## Phase 6 — Motion, QA, verification
 
@@ -81,18 +81,18 @@ existing functionality (API routes, print/export, Gemini + fallback engine, char
 ## Dependencies
 
 **New npm:** `@samasante/liquid-glass` · `sonner` · `next-themes` · `lenis` · `gsap` ·
-`@paper-design/shaders-react` (heaviest, WebGL) · Radix toggle/tabs/dialog/tooltip/progress *(done)* ·
-`clsx`/`tailwind-merge`/`class-variance-authority` *(done)*.
+`@paper-design/shaders-react` (heaviest, WebGL) · Radix toggle/tabs/dialog/tooltip/progress _(done)_ ·
+`clsx`/`tailwind-merge`/`class-variance-authority` _(done)_.
 
 **External:** crop imagery assets for `hover-img` (Unsplash or `public/`). No API changes.
 
 ## Risks
 
-- **HIGH — Heavy glass on ~15 data cards.** Each `<Glass>` spawns an SVG `feDisplacementMap` + 3-pass RGB split. *Mitigation:* low-cost `optics` preset for cards; `filterResolution={1}`; avoid `live`; IntersectionObserver mount; CSS fallback for constrained devices; FPS before/after in 6.3.
-- **HIGH — Glass legibility on charts/tables.** *Mitigation:* solid inner "data well" behind chart plots while the shell stays glass; enforce AA in 6.2.
-- **MEDIUM — Dark-theme long tail.** ~150 light-assuming references. *(handled in 1.4)*
-- **MEDIUM — Cross-browser refraction gap.** Live-DOM bending is Chrome/Edge only; Safari/Firefox get frost + tint. *Mitigation:* tune `optics.frost`.
-- **MEDIUM — Two early-stage libraries.** liquid-glass v0.1.1; ObsidianUI copy-and-own. *Mitigation:* copy source into repo, pin glass version.
-- **MEDIUM — New transitive deps** (`gsap`, `lenis`, `@paper-design/shaders-react`). *Mitigation:* dynamic-import WebGL, gate effects behind `next/dynamic`.
+- **HIGH — Heavy glass on ~15 data cards.** Each `<Glass>` spawns an SVG `feDisplacementMap` + 3-pass RGB split. _Mitigation:_ low-cost `optics` preset for cards; `filterResolution={1}`; avoid `live`; IntersectionObserver mount; CSS fallback for constrained devices; FPS before/after in 6.3.
+- **HIGH — Glass legibility on charts/tables.** _Mitigation:_ solid inner "data well" behind chart plots while the shell stays glass; enforce AA in 6.2.
+- **MEDIUM — Dark-theme long tail.** ~150 light-assuming references. _(handled in 1.4)_
+- **MEDIUM — Cross-browser refraction gap.** Live-DOM bending is Chrome/Edge only; Safari/Firefox get frost + tint. _Mitigation:_ tune `optics.frost`.
+- **MEDIUM — Two early-stage libraries.** liquid-glass v0.1.1; ObsidianUI copy-and-own. _Mitigation:_ copy source into repo, pin glass version.
+- **MEDIUM — New transitive deps** (`gsap`, `lenis`, `@paper-design/shaders-react`). _Mitigation:_ dynamic-import WebGL, gate effects behind `next/dynamic`.
 
 **Estimated complexity:** Phase 0 ~1.5h · 1 ~3h · 2 ~1.5h · 3 ~3h · 4 ~4–5h · 5 ~2–3h · 6 ~2h.

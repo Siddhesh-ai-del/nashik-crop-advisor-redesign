@@ -3,16 +3,25 @@
 import type { ReactNode } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { SmoothScroll } from "@/components/block/smooth-scroll";
+import { ClickSpark } from "@/components/block/click-spark";
 
 /**
  * Client-side provider roots for ObsidianUI primitives:
  * - TooltipProvider — required once globally by Radix tooltip.
  * - Toaster — sonner toast surface (used by Phase 5.2 actions).
+ * - SmoothScroll — lenis wheel smoothing (plan 5.6); self-disables under
+ *   prefers-reduced-motion. Lenis writes its per-frame position with
+ *   behavior:"instant", so it doesn't fight html's CSS scroll-behavior.
+ * - ClickSpark — gold burst on click/tap (plan 5.6). sparkColor is passed
+ *   explicitly: no ThemeProvider mounts in this app, so next-themes'
+ *   useTheme would resolve nothing and fall back to #000 (invisible on
+ *   the dark canvas).
  */
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <TooltipProvider delayDuration={200}>
-      {children}
+      <SmoothScroll>{children}</SmoothScroll>
       <Toaster
         position="bottom-right"
         toastOptions={{
@@ -22,6 +31,7 @@ export function Providers({ children }: { children: ReactNode }) {
           },
         }}
       />
+      <ClickSpark sparkColor="#d4b87a" />
     </TooltipProvider>
   );
 }

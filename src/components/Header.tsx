@@ -37,7 +37,8 @@ export function Header({
                 deterministic while the metal reads as a bezel). bg-surface +
                 ring are the no-WebGL fallback; the header is already
                 print-hidden, and the shader parks itself under
-                prefers-reduced-motion (motion/react's useReducedMotion). */}
+                prefers-reduced-motion (the live matchMedia hook — motion's
+                own useReducedMotion only reads the mount-time value). */}
             <span
               className="relative mt-0.5 inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-surface ring-1 ring-inset ring-border/60"
               aria-hidden

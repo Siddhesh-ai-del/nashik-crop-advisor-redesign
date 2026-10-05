@@ -3,7 +3,7 @@
 import React, { memo, forwardRef } from "react";
 import { LiquidMetal as LiquidMetalShader } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotionLive as useReducedMotion } from "@/lib/use-reduced-motion";
 
 // ============================================================================
 // LiquidMetal - Base shader wrapper component

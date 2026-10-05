@@ -73,11 +73,14 @@ export const GLASS_CHROME: GlassOptics = {
  * true. `saturate` is pinned to the material-mode default (1.15) the
  * demo inherits when its preset omits the field.
  *
- * Two deliberate deviations: `mapSize` 512→1024 (mount-only cost,
- * crisper rim on a 1440px bar), and `bend: 1.4` applied verbatim even
- * though the README documents 0–1 — the lib never clamps it (it scales
- * the rim lip linearly: `a = 0.5 * bend * m * edgeOpacity / len`), and
- * a render check confirmed it draws cleanly rather than tearing.
+ * Cost-driven tuning (Phase 7.7), all measured with the bar lensed
+ * during scroll: `mapSize` stays at the demo's 512 (my earlier 1024
+ * experiment cost +64ms/frame — the map primitive dominates the pass),
+ * `dispersion` went to 0 (RGB-split passes: −17ms software / −4ms GPU
+ * per frame, and the fringe was near-invisible anyway), and `bend` was
+ * softened from the user's pasted 1.4 (outside the documented 0–1 range)
+ * to 0.9 — a strong, in-range lip that reads "liquid but normal". The
+ * magnified middle the user wants comes from depth 0.95 + curvature 0.2.
  *
  * The result is a near-CRYSTAL pane (frost 1, brightness 0): a clear
  * window with a hard, bright, tight edge — not a frosted wash. It needs
@@ -85,16 +88,21 @@ export const GLASS_CHROME: GlassOptics = {
  * exists for exactly this — over flat cream a perfect lens still looks
  * like nothing. `bg-canvas/30` on GlassBar is the only tint left.
  *
- * Perf: unchanged from 7.5 — at rest nothing invalidates the filter
- * (metal parked, sparks parked) and `.is-scrolling` swaps the whole
- * `url()` pass for a plain blur while the page moves (globals.css), so
- * the expensive lens only ever runs on a still page.
+ * Perf: at rest nothing invalidates the filter (metal parked, sparks
+ * parked). Since Phase 7.7 the bar is EXEMPT from the `.is-scrolling`
+ * downgrade — the user rejected the visible lens→blur→lens pop on the
+ * top bar ("don't remove liq glass, I want it there all the time") — so
+ * this lens runs at every moment; only the chips still swap to plain
+ * blur while the page moves. Final measured with the lens on at all
+ * times: hardware GL (ANGLE, Radeon 740M) idle 16.6 / scroll 17.0 avg,
+ * p95 17 — locked 60fps; software-raster fallback 35ms (worst case,
+ * GPU-less browsers only). Scripts: perf-probe / perf-probe-gpu.
  */
 export const GLASS_HEADER: GlassOptics = {
-  mapSize: 1024,
+  mapSize: 512,
   depth: 0.95,
   curvature: 0.2,
-  dispersion: 0.2,
+  dispersion: 0,
   strength: 0.14,
   clipToShape: true,
   softEdge: true,
@@ -111,10 +119,17 @@ export const GLASS_HEADER: GlassOptics = {
   sheenWidth: 3.5,
   sheenFalloff: 1.7,
   splay: 0,
-  bend: 1.4,
+  bend: 0.9,
   bendWidth: 0.07,
 };
 
 /** Marker class every glass wrapper carries: `@media print` suppression and
  *  the `prefers-reduced-motion` guard in globals.css key off this. */
 export const GLASS_SURFACE = "glass-surface";
+
+/** Extra marker on GlassBar ONLY — exempts the top bar from the
+ *  `.is-scrolling` lens downgrade in globals.css. The user rejected the
+ *  visible lens→blur→lens pop on the header ("when I stop the scroll it
+ *  glitches back"), so the bar keeps its liquid glass at every moment;
+ *  only the small chips swap to plain blur while the page moves. */
+export const GLASS_BAR = "glass-bar";

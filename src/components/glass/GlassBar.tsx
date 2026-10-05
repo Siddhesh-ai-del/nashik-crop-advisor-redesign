@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { Glass } from "@samasante/liquid-glass";
 import { cn } from "@/lib/cn";
-import { GLASS_HEADER, GLASS_SURFACE } from "@/lib/glass";
+import { GLASS_BAR, GLASS_HEADER, GLASS_SURFACE } from "@/lib/glass";
 
 /**
  * GlassBar — the sticky chrome shell (plan 4.3 / 4.4): header, floating
@@ -30,6 +30,7 @@ export function GlassBar({
       style={{ display: undefined }}
       className={cn(
         GLASS_SURFACE,
+        GLASS_BAR,
         "border border-border/50 bg-canvas/30 shadow-1",
         className,
       )}

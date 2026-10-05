@@ -331,20 +331,30 @@ body {
   }
 }
 
-/* Phase 7.5 — scroll-time lens downgrade.
+/* Phase 7.5/7.7 — scroll-time lens downgrade, CHIPS ONLY.
    The material's refraction (`backdrop-filter: ... url(#lg-...)`) is an
    SVG displacement pass that the compositor re-runs for EVERY surface on
    every scroll frame — measured at ~110ms/frame (≈9fps) across the six
    chrome shells, versus a locked 16.6ms once the `url()` is dropped (the
-   plain blur/saturate part stays compositor-accelerated). So while the
-   page is in motion (`.is-scrolling` toggled by SmoothScroll) the lens
-   degrades to a cheap frost and the full refraction returns ~150ms after
-   the scroll settles — the rim dispersion is only legible at rest anyway.
+   plain blur/saturate part stays compositor-accelerated); the six pills
+   alone accounted for ~78ms of it. So while the page is in motion
+   (`.is-scrolling` toggled by SmoothScroll) the CHIPS degrade to a cheap
+   frost and their full refraction returns ~150ms after the scroll
+   settles.
+
+   The header bar opts out via `.glass-bar` (Phase 7.7): the user
+   rejected the visible lens→blur→lens pop on the top bar ("when I stop
+   the scroll it glitches back to liq glass", "don't remove liq glass,
+   I want it there all the time"), so the bar's lens runs at every
+   moment — its per-frame cost was tuned down instead (glass.ts: map
+   back to 512, dispersion 0, bend 0.9; verified with perf-probe-gpu:
+   scroll 17.0ms avg / p95 17 = locked 60fps on hardware GL, 35ms
+   software-raster fallback).
 
    Same override mechanism as the print block: `!important` in the author
    stylesheet beats the inline styles the lens mounts at runtime. Only the
    UNPREFIXED property may be declared (see the note in the print block). */
-.is-scrolling .glass-surface {
+.is-scrolling .glass-surface:not(.glass-bar) {
   filter: none !important;
   backdrop-filter: blur(8px) saturate(1.1) !important;
 }

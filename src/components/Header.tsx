@@ -46,7 +46,16 @@ export function Header({
               <LiquidMetal
                 colorBack="#191c13"
                 colorTint="#dfbd7e"
-                speed={0.35}
+                /* Phase 7.5 — speed 0 parks the shader's rAF entirely
+                   (shader-mount: "If set to 0, rAF will stop entirely so
+                   static shaders have no recurring performance costs") —
+                   the chip keeps its static liquid-gold frame, but the
+                   per-frame canvas repaint no longer wakes the glass
+                   bar's backdrop-filter behind it (measured: that
+                   repaint chain was holding the page at ≈11fps while
+                   idle). Re-enable with a nonzero speed only if the
+                   idle frame budget allows it. */
+                speed={0}
                 repetition={3}
                 distortion={0.15}
                 scale={1.4}

@@ -34,6 +34,8 @@ export const ClickSpark = ({
   const reduceMotion = useReducedMotion();
   const sparksRef = useRef<Spark[]>([]);
   const startTimeRef = useRef<number | null>(null);
+  /** Set by the draw-loop effect; lets createSparks wake an idle loop. */
+  const startLoopRef = useRef<(() => void) | null>(null);
   const { resolvedTheme } = useTheme();
 
   const effectiveColor =
@@ -106,7 +108,8 @@ export const ClickSpark = ({
       return;
     }
 
-    let animationId: number;
+    let animationId = 0;
+    let running = false;
 
     const draw = (timestamp: number) => {
       if (!startTimeRef.current) {
@@ -143,12 +146,26 @@ export const ClickSpark = ({
         return true;
       });
 
-      animationId = requestAnimationFrame(draw);
+      // Perf (Phase 7.5): park the loop the instant the last spark expires.
+      // The old unconditional re-arm cleared a fullscreen fixed canvas every
+      // frame forever — a constant repaint tax that kept the compositor from
+      // ever producing an idle frame.
+      if (sparksRef.current.length > 0) {
+        animationId = requestAnimationFrame(draw);
+      } else {
+        running = false;
+      }
     };
 
-    animationId = requestAnimationFrame(draw);
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      animationId = requestAnimationFrame(draw);
+    };
+    startLoopRef.current = startLoop;
 
     return () => {
+      startLoopRef.current = null;
       cancelAnimationFrame(animationId);
     };
   }, [
@@ -175,6 +192,7 @@ export const ClickSpark = ({
       }));
 
       sparksRef.current.push(...newSparks);
+      startLoopRef.current?.();
     },
     [sparkCount, reduceMotion],
   );

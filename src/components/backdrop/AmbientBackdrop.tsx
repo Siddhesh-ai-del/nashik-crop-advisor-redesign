@@ -49,6 +49,19 @@ export function AmbientBackdrop() {
       {/* Base vertical gradient */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#FFFCF7_0%,#FFF8F0_100%)]" />
 
+      {/* Phase 7.6 — top-edge echo band (integration delta vs upstream).
+          The Arc Bands rise from the BOTTOM edge, so the sticky header's
+          pane sits over flat cream — and a refraction lens with nothing
+          to bend renders as exactly the "plain glassmorphism" the user
+          rejected. Two layers mirror the upstream pattern (sharp band +
+          blur echo): a blurred sky→teal→amber dip for ambient colour,
+          then a sharper arc whose edge crosses behind the bar's lower
+          third — a crisp gradient edge is what a meniscus visibly KINKS,
+          so the lens has something to bend even at page top. Static,
+          one paint, same contract as every layer here. */}
+      <div className="pointer-events-none absolute -top-[26%] left-1/2 -z-10 h-[52%] w-[160%] -translate-x-1/2 rounded-[100%] blur-2xl [background:radial-gradient(ellipse_120%_100%_at_50%_0%,rgba(56,189,248,0.20)_0%,rgba(45,212,191,0.15)_28%,rgba(245,158,11,0.10)_55%,transparent_80%)]" />
+      <div className="pointer-events-none absolute -top-[16%] left-1/2 -z-10 h-[34%] w-[170%] -translate-x-1/2 rounded-[100%] [background:radial-gradient(ellipse_130%_100%_at_50%_0%,rgba(56,189,248,0.26)_0%,rgba(45,212,191,0.18)_45%,rgba(245,158,11,0.11)_70%,transparent_77%)]" />
+
       {/* Arc band — sky → teal → amber → rose radiating from the base */}
       <div className="pointer-events-none absolute -bottom-[28%] left-1/2 -z-10 h-[92%] w-[150%] -translate-x-1/2 rounded-[100%] [background:radial-gradient(ellipse_120%_88%_at_50%_100%,rgba(56,189,248,0.52)_0%,rgba(45,212,191,0.44)_18%,rgba(245,158,11,0.38)_40%,rgba(244,63,94,0.30)_62%,rgba(255,252,247,0)_82%)]" />
 

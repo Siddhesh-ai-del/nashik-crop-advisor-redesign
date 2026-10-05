@@ -331,6 +331,24 @@ body {
   }
 }
 
+/* Phase 7.5 — scroll-time lens downgrade.
+   The material's refraction (`backdrop-filter: ... url(#lg-...)`) is an
+   SVG displacement pass that the compositor re-runs for EVERY surface on
+   every scroll frame — measured at ~110ms/frame (≈9fps) across the six
+   chrome shells, versus a locked 16.6ms once the `url()` is dropped (the
+   plain blur/saturate part stays compositor-accelerated). So while the
+   page is in motion (`.is-scrolling` toggled by SmoothScroll) the lens
+   degrades to a cheap frost and the full refraction returns ~150ms after
+   the scroll settles — the rim dispersion is only legible at rest anyway.
+
+   Same override mechanism as the print block: `!important` in the author
+   stylesheet beats the inline styles the lens mounts at runtime. Only the
+   UNPREFIXED property may be declared (see the note in the print block). */
+.is-scrolling .glass-surface {
+  filter: none !important;
+  backdrop-filter: blur(8px) saturate(1.1) !important;
+}
+
 @media print {
   body {
     background: #ffffff;

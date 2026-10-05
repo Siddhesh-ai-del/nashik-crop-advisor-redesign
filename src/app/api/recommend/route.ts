@@ -5,7 +5,7 @@ import type {
 } from "@/lib/types";
 import { REGIONS, SEASONS, SOILS, WATER_LEVELS } from "@/lib/constants";
 import { getFallbackRecommendations } from "@/lib/fallback-data";
-import { normalizeGeminiCrops, queryGemini } from "@/lib/gemini";
+import { normalizeGeminiCrops, queryGeminiCached } from "@/lib/gemini";
 
 export const dynamic = "force-dynamic";
 
@@ -35,8 +35,7 @@ export async function POST(request: NextRequest) {
   if (!validateRequest(payload)) {
     return NextResponse.json(
       {
-        error:
-          "Body must include valid region, season, soil and water values.",
+        error: "Body must include valid region, season, soil and water values.",
       },
       { status: 400 },
     );
@@ -53,7 +52,7 @@ export async function POST(request: NextRequest) {
   let source: "ai" | "fallback" = "fallback";
 
   try {
-    const aiCrops = await queryGemini(requestData);
+    const aiCrops = await queryGeminiCached(requestData);
     crops = normalizeGeminiCrops(aiCrops);
     source = "ai";
   } catch {

@@ -1,13 +1,14 @@
 /**
- * AmbientBackdrop — the load-bearing layer under every glass surface (plan 4.2).
+ * AmbientBackdrop — the fixed viewport cover under every surface (plan 4.2).
  *
- * Plan 5.7: the original gradient-mesh / furrow / vignette layers were replaced
- * with OpenSourceUI's "Dark Aurora Background" — four soft teal/cyan/emerald/
- * sky blooms + a dot-grid over charcoal — so the liquid-glass lenses refract
- * moving colour instead of a flat mesh. Layer markup is copied verbatim from:
+ * Phase 7: the Dark Aurora layers were replaced with OpenSourceUI's
+ * "Arc Bands Background" — sky/teal/amber/rose radial arcs rising from the
+ * bottom edge over a warm cream base (#FFFCF7 → #FFF8F0), softened by two
+ * blur passes and a faint 4px dot grid. Layer markup is copied verbatim
+ * from:
  *
- *   https://opensourceui.in/components/dark-aurora-background
- *   https://github.com/bidyut10/opensourceui
+ *   https://opensourceui.in/components/arc-bands-background
+ *   https://github.com/bidyut10
  *
  * --- MIT License -----------------------------------------------------------
  * Copyright (c) 2026 Bidyut Kundu
@@ -33,8 +34,9 @@
  *
  * Integration deltas vs the upstream component (which wraps `children`):
  * - wrapper here is the plan 4.2 fixed viewport cover, keeping `-z-10`,
- *   `pointer-events-none`, `aria-hidden` and the plan 4.6 `print:hidden` guard;
- *   it adopts upstream's `bg-[#0A0C0F]` + `overflow-hidden` semantics.
+ *   `pointer-events-none`, `aria-hidden` and the plan 4.6 `print:hidden`
+ *   guard; the arc layers anchor to the viewport's bottom edge, so the
+ *   glow rides along as the user scrolls.
  * - inner layers are untouched: static (one paint, zero runtime cost), so no
  *   reduced-motion handling is needed.
  */
@@ -42,26 +44,22 @@ export function AmbientBackdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#0A0C0F] print:hidden"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#FFFCF7] print:hidden"
     >
       {/* Base vertical gradient */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#12151A_0%,#0A0C0F_55%,#06080A_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#FFFCF7_0%,#FFF8F0_100%)]" />
 
-      {/* Aurora blooms — teal, cyan, emerald, sky */}
-      <div className="pointer-events-none absolute -inset-6 -z-10 blur-xl">
-        <div className="absolute inset-0 bg-[#0A0C0F]" />
+      {/* Arc band — sky → teal → amber → rose radiating from the base */}
+      <div className="pointer-events-none absolute -bottom-[28%] left-1/2 -z-10 h-[92%] w-[150%] -translate-x-1/2 rounded-[100%] [background:radial-gradient(ellipse_120%_88%_at_50%_100%,rgba(56,189,248,0.52)_0%,rgba(45,212,191,0.44)_18%,rgba(245,158,11,0.38)_40%,rgba(244,63,94,0.30)_62%,rgba(255,252,247,0)_82%)]" />
 
-        <div className="absolute -top-[18%] -left-[12%] h-[68%] w-[68%] rounded-full bg-[#2DD4BF] opacity-22 blur-3xl" />
+      {/* Softened echo of the band (blur-2xl) */}
+      <div className="pointer-events-none absolute -bottom-[22%] left-1/2 -z-10 h-[78%] w-[128%] -translate-x-1/2 rounded-[100%] blur-2xl [background:radial-gradient(ellipse_110%_80%_at_50%_100%,rgba(56,189,248,0.28)_0%,rgba(45,212,191,0.24)_22%,rgba(251,191,36,0.20)_46%,rgba(251,113,133,0.16)_68%,transparent_86%)]" />
 
-        <div className="absolute top-[8%] -right-[10%] h-[62%] w-[62%] rounded-full bg-[#22D3EE] opacity-18 blur-3xl" />
-
-        <div className="absolute bottom-[-28%] left-[18%] h-[70%] w-[70%] rounded-full bg-[#34D399] opacity-16 blur-3xl" />
-
-        <div className="absolute right-[8%] bottom-[-16%] h-[56%] w-[56%] rounded-full bg-[#38BDF8] opacity-14 blur-3xl" />
-      </div>
+      {/* Inner white bloom lifting the very bottom (blur-3xl) */}
+      <div className="pointer-events-none absolute -bottom-[18%] left-1/2 -z-10 h-[64%] w-[108%] -translate-x-1/2 rounded-[100%] blur-3xl [background:radial-gradient(ellipse_100%_72%_at_50%_100%,rgba(255,255,255,0.55)_0%,rgba(255,252,247,0.18)_38%,transparent_72%)]" />
 
       {/* Dot-grid texture */}
-      <div className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(circle_at_center,#FFFFFF_1px,transparent_1px)] [background-size:4px_4px] opacity-[0.04]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(circle_at_center,#000_1px,transparent_1px)] [background-size:4px_4px] opacity-[0.03]" />
     </div>
   );
 }

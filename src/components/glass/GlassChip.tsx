@@ -28,7 +28,7 @@ export function GlassChip({
          children anyway (grid blockifies inline-block). */
       className={cn(
         GLASS_SURFACE,
-        "rounded-full border border-border/50 bg-surface/80 shadow-1",
+        "rounded-full border border-border/50 bg-surface/35 shadow-1",
         className,
       )}
     >

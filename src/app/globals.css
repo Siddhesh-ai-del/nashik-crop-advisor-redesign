@@ -2,39 +2,42 @@
 /* animate-in/out utilities for Radix Dialog/Toaster data-state animations */
 @import "tw-animate-css";
 
-/* App is always-dark: bind the `dark:` variant to the html.dark class so
-   ObsidianUI primitives render deterministically regardless of OS setting. */
+/* Phase 7 — light "retro paper" theme. The `dark:` variant stays bound to
+   the (now absent) html.dark class so ObsidianUI primitives never fall
+   through to OS-dark styling: the app is deterministically light. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Native controls (checkboxes, inputs, scrollbars) render dark */
-  color-scheme: dark;
-  /* Dark charcoal ramp */
-  --background: #0a0b0c;
-  --foreground: #e8e6e1;
-  --canvas: #0a0b0c;
-  --canvas-warm: #141618;
-  --canvas-deep: #1c1f22;
-  --surface: #141618;
-  --surface-elevated: #1c1f22;
-  --ink: #e8e6e1;
-  --ink-secondary: #a8a49c;
-  --ink-muted: #9a958c;
-  --border: #2a2e33;
-  --border-light: #22262a;
-  /* Accents: moss → primary action green (brightened for dark canvas) */
-  --moss: #7ba069;
-  --moss-light: #1d2a1a;
-  --moss-deep: #9ec48c;
-  --sage: #8a9a7c;
-  --sage-light: #1a1f18;
-  --terracotta: #d98a63;
-  --terracotta-light: #2a1c15;
-  --clay: #c9a882;
-  --clay-light: #241f18;
-  --stone: #8a8078;
-  --olive: #a3b573;
-  --olive-light: #1e2218;
+  /* Native controls (checkboxes, inputs, scrollbars) render light */
+  color-scheme: light;
+  /* Warm paper ramp — meets OpenSourceUI's Arc Bands backdrop, whose base
+     is #FFFCF7 → #FFF8F0; cards sit on it as pure-white paper sheets. */
+  --background: #fffcf7;
+  --foreground: #1f1d1a;
+  --canvas: #fffcf7;
+  --canvas-warm: #f6f1e7;
+  --canvas-deep: #ece5d6;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --ink: #1f1d1a;
+  --ink-secondary: #4c4841;
+  --ink-muted: #6e6a62;
+  --border: #e2dbcb;
+  --border-light: #ede7da;
+  /* Accents: moss → primary action green (deepened for paper canvas —
+     every ink/accent pair below clears WCAG AA on cream and on white) */
+  --moss: #35602a;
+  --moss-light: #e9f0e5;
+  --moss-deep: #2c5123;
+  --sage: #5e6b52;
+  --sage-light: #eaede4;
+  --terracotta: #a4552d;
+  --terracotta-light: #f7e9e2;
+  --clay: #8a6a44;
+  --clay-light: #f1e8dc;
+  --stone: #6b655e;
+  --olive: #5d6b34;
+  --olive-light: #eef1e6;
 
   /* Motion scale (plan 6.1) — CSS twin of the numeric tokens exported by
      src/lib/motion.ts for framer sites; keep the values in sync */
@@ -53,11 +56,15 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* Elevation ladder — deep neutral shadows for dark canvas */
-  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-3: 0 8px 40px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-glow: 0 0 6px rgba(123, 160, 105, 0.45);
+  /* Elevation ladder — soft warm shadows for paper canvas (light theme
+     wants lift, not the heavy black pools a dark canvas needed) */
+  --shadow-1:
+    0 1px 2px rgba(31, 29, 26, 0.07), 0 1px 4px rgba(31, 29, 26, 0.05);
+  --shadow-2:
+    0 4px 12px rgba(31, 29, 26, 0.1), 0 1px 3px rgba(31, 29, 26, 0.06);
+  --shadow-3:
+    0 16px 48px rgba(31, 29, 26, 0.16), 0 4px 12px rgba(31, 29, 26, 0.08);
+  --shadow-glow: 0 0 6px rgba(53, 96, 42, 0.35);
 
   /* Type scale — real size contrast (was: everything text-xs/sm) */
   --text-display: 2.5rem;
@@ -122,24 +129,27 @@
   --color-stone: var(--stone);
   --color-olive: var(--olive);
   --color-olive-light: var(--olive-light);
-  --color-leaf-50: #1a2416;
-  --color-leaf-100: #1f3318;
-  --color-leaf-200: #2f4826;
-  --color-leaf-300: #3d5a32;
-  --color-leaf-400: #4a6a3d;
-  --color-leaf-500: #5a7a4d;
-  --color-leaf-600: #7ba069;
-  --color-leaf-700: #9ec48c;
-  --color-leaf-800: #c4d8b8;
-  --color-leaf-900: #e0ebd8;
-  --color-harvest-50: #241d10;
-  --color-harvest-100: #2e2413;
-  --color-harvest-200: #3f3218;
-  --color-harvest-300: #5a4720;
-  --color-harvest-400: #7a5c22;
-  --color-harvest-500: #96722c;
-  --color-harvest-600: #b08838;
-  --color-harvest-700: #d4b87a;
+  /* leaf / harvest scales — light-first ramps (50 = pale wash … 900 =
+     deep ink). Pairings across the app are always pale-bg + deep-text,
+     so the flip keeps every badge/chip contrast relationship intact. */
+  --color-leaf-50: #f1f7ee;
+  --color-leaf-100: #e1efda;
+  --color-leaf-200: #c5e0bb;
+  --color-leaf-300: #a0cb92;
+  --color-leaf-400: #7bb567;
+  --color-leaf-500: #5c9a48;
+  --color-leaf-600: #477b37;
+  --color-leaf-700: #35602a;
+  --color-leaf-800: #2a4b22;
+  --color-leaf-900: #1e3618;
+  --color-harvest-50: #fdf6e7;
+  --color-harvest-100: #faebcb;
+  --color-harvest-200: #f4d89b;
+  --color-harvest-300: #ecc266;
+  --color-harvest-400: #dea63c;
+  --color-harvest-500: #a97420;
+  --color-harvest-600: #96671c;
+  --color-harvest-700: #85591b;
 }
 
 html {
@@ -327,10 +337,9 @@ body {
   }
 
   /* --- Phase 4.6: paper palette --------------------------------------
-     Phase 1.4 flipped the ramp dark, which left `--ink: #e8e6e1` light
-     text on the white print background — invisible on paper. Re-flip the
-     full ramp to dark-on-white for print only, so PrintSummary (and any
-     card that reaches paper) stays legible. Every `text-*`/`bg-*`
+     The screen ramp (Phase 7) is already light-on-cream; print pins the
+     base to pure #ffffff and swaps the warm inks for neutral print-safe
+     ones so ink density on paper is exact. Every `text-*`/`bg-*`
      utility resolves through these vars, so one override fixes all. */
   :root {
     color-scheme: light;

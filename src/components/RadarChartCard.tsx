@@ -41,44 +41,44 @@ export function RadarChartCard({ crop }: { crop: CropRecommendation }) {
       <div className="mt-3 h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={data} cx="50%" cy="50%" outerRadius="72%">
-            <PolarGrid stroke="#2a2e33" strokeOpacity={0.6} />
+            <PolarGrid stroke="#e5decf" strokeOpacity={0.9} />
             <PolarAngleAxis
               dataKey="subject"
               tick={{
                 fontSize: 11,
-                fill: "#a8a49c",
+                fill: "#55514a",
                 fontFamily: "var(--font-inter)",
               }}
             />
             <PolarRadiusAxis
               angle={90}
               domain={[0, 100]}
-              tick={{ fontSize: 10, fill: "#bebab2" }}
+              tick={{ fontSize: 10, fill: "#55514a" }}
               tickCount={5}
             />
             <Tooltip
               contentStyle={{
                 borderRadius: 12,
-                border: "1px solid #2a2e33",
+                border: "1px solid #e5decf",
                 fontSize: 12,
-                background: "#1c1f22",
+                background: "#ffffff",
                 fontFamily: "var(--font-inter)",
-                color: "#e8e6e1",
+                color: "#1f1d1a",
               }}
               formatter={(value) => [`${value} / 100`, "Rating"]}
             />
             <Radar
               name="Rating"
               dataKey="value"
-              stroke="#7ba069"
+              stroke="#477b37"
               strokeWidth={2}
-              fill="#7ba069"
+              fill="#477b37"
               fillOpacity={0.18}
-              dot={{ r: 3, fill: "#7ba069", stroke: "#1c1f22", strokeWidth: 2 }}
+              dot={{ r: 3, fill: "#477b37", stroke: "#ffffff", strokeWidth: 2 }}
               activeDot={{
                 r: 5,
-                fill: "#9ec48c",
-                stroke: "#0a0b0c",
+                fill: "#35602a",
+                stroke: "#ffffff",
                 strokeWidth: 2,
               }}
             />

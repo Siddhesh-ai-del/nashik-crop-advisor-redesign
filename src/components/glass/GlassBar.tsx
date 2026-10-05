@@ -7,8 +7,9 @@ import { GLASS_CHROME, GLASS_SURFACE } from "@/lib/glass";
 
 /**
  * GlassBar — the sticky chrome shell (plan 4.3 / 4.4): header, floating
- * action bars. Uses the locked `chrome` optics — heavier frost so content
- * scrolling underneath never bleeds through the bar.
+ * action bars. Uses the locked `chrome` optics — a clear body (low tint,
+ * soft 7px frost) that still softens content scrolling underneath into a
+ * backdrop, never a distraction.
  *
  * Print: suppressed via `.glass-surface` rules in globals.css (the header
  * itself also carries `print-hide`).
@@ -23,12 +24,12 @@ export function GlassBar({
   return (
     <Glass
       optics={GLASS_CHROME}
-      /* See GlassPanel — drop the inline inline-block default so the bar
+      /* See GlassChip — drop the inline inline-block default so the bar
          lays out as a normal block (full width of its sticky wrapper). */
       style={{ display: undefined }}
       className={cn(
         GLASS_SURFACE,
-        "border border-border/50 bg-canvas/75 shadow-1",
+        "border border-border/50 bg-canvas/40 shadow-1",
         className,
       )}
     >

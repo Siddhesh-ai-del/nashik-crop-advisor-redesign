@@ -46,7 +46,6 @@ export function CropSwitcher({
                 ? "border-moss/40 bg-moss text-canvas shadow-2"
                 : "border-border/40 bg-surface/60 text-ink-secondary hover:border-moss/20 hover:bg-moss-light/30",
               "data-[state=active]:border-moss/40 data-[state=active]:bg-moss data-[state=active]:text-canvas",
-              "dark:data-[state=active]:border-moss/40 dark:data-[state=active]:bg-moss dark:data-[state=active]:text-canvas",
             )}
           >
             <Icon

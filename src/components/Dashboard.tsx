@@ -19,7 +19,6 @@ import { PrintSummary } from "./PrintSummary";
 import { FadeIn, SectionCard } from "./ui";
 import { Tabs, TabsContent } from "./ui/tabs";
 import { RecommendationLoader } from "./RecommendationLoader";
-import { GlassPanel } from "./glass/GlassPanel";
 import { GlassChip } from "./glass/GlassChip";
 import { InteractiveHoverButton } from "./block/interactive-hover-button";
 import { HoverImg } from "./block/hover-img";
@@ -72,8 +71,9 @@ export function Dashboard() {
 
       <div className="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-6 print:p-0">
         {error ? (
-          /* Glass error banner (plan 4.4): terracotta-tinted panel. */
-          <GlassPanel className="rounded-lg border-terracotta/25 bg-terracotta-light/55 print-hide">
+          /* Terracotta-tinted error banner (Phase 7: solid — glass now
+             lives only in the small chrome shells). */
+          <div className="print-hide rounded-lg border border-terracotta/25 bg-terracotta-light shadow-1">
             <div className="flex items-start justify-between gap-3 p-4">
               <div className="flex items-start gap-3">
                 <AlertCircle
@@ -95,14 +95,17 @@ export function Dashboard() {
                 Retry
               </button>
             </div>
-          </GlassPanel>
+          </div>
         ) : null}
 
         <FadeIn delay={0.05}>
           <PresetButtons params={params} onApply={setParams} />
         </FadeIn>
 
-        <div className="grid grid-cols-1 gap-7 xl:grid-cols-[400px_1fr]">
+        {/* items-start: with solid paper cards, a stretched short card reads
+            as empty box (the glass version hid it behind the aurora) — the
+            weather card now sizes to its content next to the taller panel. */}
+        <div className="grid grid-cols-1 items-start gap-7 xl:grid-cols-[400px_1fr]">
           <FadeIn delay={0.1}>
             <div className="space-y-7">
               <ParameterPanel params={params} onChange={setParam} />

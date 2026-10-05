@@ -41,23 +41,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0b0c",
+  themeColor: "#fffcf7",
   width: "device-width",
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${inter.variable} dark h-full antialiased`}
+      className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full">
-        {/* Load-bearing for every glass surface: the lenses refract this
-            gradient mesh instead of a flat fill (plan 4.2). Static, z-below
-            content, hidden in print. */}
+        {/* Fixed arc-bands cover under every surface: cream paper base with
+            the sky/teal/amber/rose arcs glowing up from the bottom edge
+            (Phase 7). Static, z-below content, hidden in print. */}
         <AmbientBackdrop />
         <Providers>{children}</Providers>
       </body>

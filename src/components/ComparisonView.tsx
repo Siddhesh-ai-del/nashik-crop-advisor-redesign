@@ -140,7 +140,7 @@ export function ComparisonView({
                       interval={0}
                     />
                     <YAxis
-                      tick={{ fontSize: 11, fill: "#74706a" }}
+                      tick={{ fontSize: 11, fill: "#9a958c" }}
                       axisLine={false}
                       tickLine={false}
                       tickFormatter={(v) =>
@@ -165,6 +165,9 @@ export function ComparisonView({
                         fontSize: 12,
                         fontFamily: "var(--font-inter)",
                       }}
+                      formatter={(value) => (
+                        <span style={{ color: "#a8a49c" }}>{value}</span>
+                      )}
                     />
                     <Bar dataKey="Input" fill="#8a8078" radius={[4, 4, 0, 0]} />
                     <Bar
@@ -207,7 +210,7 @@ export function ComparisonView({
                     <PolarRadiusAxis
                       angle={90}
                       domain={[0, 100]}
-                      tick={{ fontSize: 10, fill: "#74706a" }}
+                      tick={{ fontSize: 10, fill: "#bebab2" }}
                       tickCount={5}
                     />
                     <Tooltip

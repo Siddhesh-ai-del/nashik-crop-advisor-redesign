@@ -13,7 +13,10 @@ import { RadarIcon } from "lucide-react";
 import type { CropRecommendation } from "@/lib/types";
 import { SectionCard, SectionTitle } from "./ui";
 
-const METRIC_LABELS: { key: keyof CropRecommendation["radarMetrics"]; label: string }[] = [
+const METRIC_LABELS: {
+  key: keyof CropRecommendation["radarMetrics"];
+  label: string;
+}[] = [
   { key: "yieldPotential", label: "Yield Potential" },
   { key: "marketValue", label: "Market Value" },
   { key: "waterEfficiency", label: "Water Efficiency" },
@@ -41,12 +44,16 @@ export function RadarChartCard({ crop }: { crop: CropRecommendation }) {
             <PolarGrid stroke="#2a2e33" strokeOpacity={0.6} />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fontSize: 11, fill: "#a8a49c", fontFamily: "var(--font-inter)" }}
+              tick={{
+                fontSize: 11,
+                fill: "#a8a49c",
+                fontFamily: "var(--font-inter)",
+              }}
             />
             <PolarRadiusAxis
               angle={90}
               domain={[0, 100]}
-              tick={{ fontSize: 10, fill: "#74706a" }}
+              tick={{ fontSize: 10, fill: "#bebab2" }}
               tickCount={5}
             />
             <Tooltip
@@ -68,7 +75,12 @@ export function RadarChartCard({ crop }: { crop: CropRecommendation }) {
               fill="#7ba069"
               fillOpacity={0.18}
               dot={{ r: 3, fill: "#7ba069", stroke: "#1c1f22", strokeWidth: 2 }}
-              activeDot={{ r: 5, fill: "#9ec48c", stroke: "#0a0b0c", strokeWidth: 2 }}
+              activeDot={{
+                r: 5,
+                fill: "#9ec48c",
+                stroke: "#0a0b0c",
+                strokeWidth: 2,
+              }}
             />
           </RadarChart>
         </ResponsiveContainer>

@@ -24,7 +24,7 @@ export function PresetButtons({
 }) {
   return (
     <div>
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink-muted">
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink-secondary">
         One-click sample presets
       </p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

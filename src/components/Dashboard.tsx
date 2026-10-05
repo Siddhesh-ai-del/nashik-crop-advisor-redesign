@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { AlertCircle, FlaskConical, Sparkles, Trophy } from "lucide-react";
 import { useRecommendation } from "@/hooks/useRecommendation";
@@ -21,6 +21,8 @@ import { RecommendationLoader } from "./RecommendationLoader";
 import { GlassPanel } from "./glass/GlassPanel";
 import { GlassChip } from "./glass/GlassChip";
 import { InteractiveHoverButton } from "./block/interactive-hover-button";
+import { HoverImg } from "./block/hover-img";
+import { cropImage } from "@/lib/crop-images";
 
 export function Dashboard() {
   const {
@@ -38,8 +40,23 @@ export function Dashboard() {
   const [activeTier, setActiveTier] = useState<CropTier>("primary");
   const [compareOpen, setCompareOpen] = useState(false);
 
-  const crops = recommendation?.crops ?? [];
+  /* `?? []` would allocate a fresh array per render and re-trigger the
+     gallery memo below; memoizing the source keeps the identity stable. */
+  const crops = useMemo(() => recommendation?.crops ?? [], [recommendation]);
   const activeCrop = crops.find((c) => c.tier === activeTier) ?? crops[0];
+
+  /* Plan 5.4 — photo index for the hover-img gallery. Memoized so the
+     block's pointer listeners aren't re-bound on every Dashboard render
+     (weather/params state changes nothing about the ranking). */
+  const galleryProjects = useMemo(
+    () =>
+      crops.map((crop) => ({
+        title: crop.crop,
+        label: crop.tag,
+        imageSrc: cropImage(crop.crop),
+      })),
+    [crops],
+  );
 
   return (
     <main className="pb-20 print:p-0">
@@ -158,35 +175,45 @@ export function Dashboard() {
               {loadingRecommendation ? (
                 <RecommendationLoader />
               ) : activeCrop ? (
-                /* Tabs root: CropSwitcher renders the tab list, CropDetails is
-                   the tab panel. Value tracks activeCrop so a stale tier after
-                   a recompute still maps to a real trigger. */
-                <Tabs
-                  value={activeCrop.tier}
-                  onValueChange={(v) => setActiveTier(v as CropTier)}
-                  className="gap-6"
-                >
-                  <CropSwitcher crops={crops} activeTier={activeCrop.tier} />
-                  <TabsContent value={activeCrop.tier} className="mt-0">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeCrop.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                          duration: 0.3,
-                          ease: [0.25, 0.46, 0.45, 0.94],
-                        }}
-                      >
-                        <CropDetails
-                          crop={activeCrop}
-                          activeTier={activeCrop.tier}
-                        />
-                      </motion.div>
-                    </AnimatePresence>
-                  </TabsContent>
-                </Tabs>
+                <>
+                  {/* Plan 5.4 — hover-img: photo index of the ranked crops,
+                      hovering a row floats that crop's photo on the cursor.
+                      The rows duplicate content already reachable via the
+                      tabs and panel, so the gallery is hidden from AT and
+                      from print (paper uses PrintSummary). */}
+                  <div aria-hidden="true" className="print:hidden">
+                    <HoverImg projects={galleryProjects} compact />
+                  </div>
+                  {/* Tabs root: CropSwitcher renders the tab list, CropDetails is
+                      the tab panel. Value tracks activeCrop so a stale tier after
+                      a recompute still maps to a real trigger. */}
+                  <Tabs
+                    value={activeCrop.tier}
+                    onValueChange={(v) => setActiveTier(v as CropTier)}
+                    className="gap-6"
+                  >
+                    <CropSwitcher crops={crops} activeTier={activeCrop.tier} />
+                    <TabsContent value={activeCrop.tier} className="mt-0">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeCrop.id}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            duration: 0.3,
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                          }}
+                        >
+                          <CropDetails
+                            crop={activeCrop}
+                            activeTier={activeCrop.tier}
+                          />
+                        </motion.div>
+                      </AnimatePresence>
+                    </TabsContent>
+                  </Tabs>
+                </>
               ) : null}
             </div>
           </SectionCard>

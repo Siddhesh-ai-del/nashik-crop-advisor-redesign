@@ -10,6 +10,7 @@ import type { RecommendationRequest, WeatherResponse } from "@/lib/types";
 import { REGIONS, SEASONS } from "@/lib/constants";
 import { GlassBar } from "./glass/GlassBar";
 import { FlipText } from "./block/flip-text";
+import { LiquidMetal } from "./block/liquid-metal";
 
 export function Header({
   params,
@@ -29,8 +30,30 @@ export function Header({
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           {/* Single hierarchy: display heading → muted subhead (brand icon inline). */}
           <div className="flex items-start gap-3">
-            <span className="mt-1 text-moss" aria-hidden>
-              <Sprout className="h-7 w-7" />
+            {/* Plan 5.5 — liquid-metal logo chip: liquid gold chrome with
+                the sprout mark set in a dark medallion disc (moss-light is
+                near-black after the Phase 1.4 token flip, and bright bands
+                would swallow a naked light glyph — the disc makes contrast
+                deterministic while the metal reads as a bezel). bg-surface +
+                ring are the no-WebGL fallback; the header is already
+                print-hidden, and the shader parks itself under
+                prefers-reduced-motion (motion/react's useReducedMotion). */}
+            <span
+              className="relative mt-0.5 inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-surface ring-1 ring-inset ring-border/60"
+              aria-hidden
+            >
+              <LiquidMetal
+                colorBack="#191c13"
+                colorTint="#dfbd7e"
+                speed={0.35}
+                repetition={3}
+                distortion={0.15}
+                scale={1.4}
+                className="rounded-md"
+              />
+              <span className="relative z-10 flex size-7 items-center justify-center rounded-full bg-surface/85 ring-1 ring-white/10">
+                <Sprout className="h-4 w-4 text-moss-deep" />
+              </span>
             </span>
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
